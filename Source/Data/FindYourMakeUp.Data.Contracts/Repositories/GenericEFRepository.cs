@@ -5,9 +5,9 @@
      using System.Data.Entity.Infrastructure;
      using System.Linq;
 
-     public class GenericRepository<T> : IRepository<T> where T : class
+     public class GenericEFRepository<T> : IRepository<T> where T : class
      {
-         public GenericRepository(DbContext context)
+         public GenericEFRepository(DbContext context)
          {
              if (context == null)
              {

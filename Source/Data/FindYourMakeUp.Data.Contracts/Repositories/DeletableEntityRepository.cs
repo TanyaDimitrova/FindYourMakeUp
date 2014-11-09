@@ -5,7 +5,7 @@
 
     using FindYourMakeUp.Data.Contracts.Models;
 
-     public class DeletableEntityRepository<T> : GenericRepository<T>, IDeletableEntityRepository<T>
+     public class DeletableEntityRepository<T> : GenericEFRepository<T>, IDeletableEntityRepository<T>
          where T : class, IDeletableEntity
      {
          public DeletableEntityRepository(DbContext context)
