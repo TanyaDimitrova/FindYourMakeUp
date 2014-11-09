@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using FindYourMakeUp.Data.Models;
+using FindYourMakeUp.Web.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using FindYourMakeUp.Web.Models;
 
 namespace FindYourMakeUp.Web.Controllers
 {

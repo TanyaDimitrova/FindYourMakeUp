@@ -11,7 +11,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
-using FindYourMakeUp.Web.Models;
+using FindYourMakeUp.Web.ViewModels;
 using FindYourMakeUp.Data;
 
 namespace FindYourMakeUp.Web
