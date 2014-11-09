@@ -10,20 +10,30 @@
     using FindYourMakeUp.Data.Migrations;
     using FindYourMakeUp.Data.Models;
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class FindYourMakeUpDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext()
+        public FindYourMakeUpDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, Configuration>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<FindYourMakeUpDbContext, Configuration>());
         }
 
-        public static ApplicationDbContext Create()
+        public static FindYourMakeUpDbContext Create()
         {
-            return new ApplicationDbContext();
+            return new FindYourMakeUpDbContext();
         }
 
         public IDbSet<Product> Products { get; set; }
+
+        public IDbSet<Category> Categories { get; set; }
+
+        public IDbSet<Manufacturer> Manufacturers { get; set; }
+
+        public IDbSet<ProductType> ProductTypes { get; set; }
+
+        public IDbSet<Purpose> Purposes { get; set; }
+
+        public IDbSet<Review> Reviews { get; set; }
 
         public override int SaveChanges()
         {

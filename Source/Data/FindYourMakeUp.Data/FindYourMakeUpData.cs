@@ -6,8 +6,9 @@
 
     using FindYourMakeUp.Data.Contracts.Repositories;
     using FindYourMakeUp.Data.Models;
+    using FindYourMakeUp.Data.UoW;
 
-    class FindYourMakeUpData
+    class FindYourMakeUpData : IData
     {
         private DbContext context;
         private IDictionary<Type, object> repositories;
@@ -23,6 +24,37 @@
             get { return this.GetRepository<ApplicationUser>(); }
         }
 
+   
+        public IRepository<Category> Categories
+        {
+            get { return this.GetRepository<Category>(); }
+        }
+
+        public IRepository<Manufacturer> Manufacturers
+        {
+            get { return this.GetRepository<Manufacturer>(); }
+        }
+
+        public IRepository<Product> Products
+        {
+            get { return this.GetRepository<Product>(); }
+        }
+
+        public IRepository<ProductType> ProductTypes
+        {
+            get { return this.GetRepository<ProductType>(); }
+        }
+
+        public IRepository<Purpose> Purposes
+        {
+            get { return this.GetRepository<Purpose>(); }
+        }
+
+        public IRepository<Review> Reviews
+        {
+            get { return this.GetRepository<Review>(); }
+        }
+        
         public int SaveChanges()
         {
             return this.context.SaveChanges();
@@ -39,5 +71,7 @@
 
             return (IRepository<T>)this.repositories[typeOfRepository];
         }
+
+
     }
 }

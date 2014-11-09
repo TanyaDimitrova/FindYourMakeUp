@@ -1,9 +1,14 @@
 namespace FindYourMakeUp.Data.Models
 {
-    using System.ComponentModel.DataAnnotations;
+    using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
     public class ProductType
     {
+        public ProductType()
+        {
+            this.Purposes = new HashSet<Purpose>();// TODO: Refactor!
+        }
         [Key]
         public int Id { get; set; }
 
@@ -11,9 +16,6 @@ namespace FindYourMakeUp.Data.Models
         [MinLength(3)]
         public string Name { get; set; }
 
-        [Required]
-        public int PurposeId { get; set; }
-
-        public virtual Purpose Purpose { get; set; }
+        public virtual ICollection<Purpose> Purposes { get; set; }
     }
 }
