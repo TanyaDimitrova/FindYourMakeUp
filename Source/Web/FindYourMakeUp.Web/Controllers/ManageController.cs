@@ -3,11 +3,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using FindYourMakeUp.Data.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using FindYourMakeUp.Web.Models;
-using FindYourMakeUp.Data.Models;
 
 namespace FindYourMakeUp.Web.Controllers
 {

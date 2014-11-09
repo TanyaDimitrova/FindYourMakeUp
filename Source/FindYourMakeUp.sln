@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{B661AA78-049F-45A1-810D-2153E83B3A09}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{748B3F0D-9CE9-4907-993B-3E74D3598C9E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindYourMakeUp.Web", "Web\FindYourMakeUp.Web\FindYourMakeUp.Web.csproj", "{BB8B4C0D-3618-4B7C-8517-C4F44C1B4A5F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindYourMakeUp.Data", "Data\FindYourMakeUp.Data\FindYourMakeUp.Data.csproj", "{8E25D1CA-FEC7-4B70-91B2-0B85A563E355}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindYourMakeUp.Data.Models", "Data\FindYourMakeUp.Data.Models\FindYourMakeUp.Data.Models.csproj", "{5C3C0CD2-943B-45C9-A9F5-178FF6396549}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindYourMakeUp.Data.Contracts", "Data\FindYourMakeUp.Data.Contracts\FindYourMakeUp.Data.Contracts.csproj", "{56B30BDE-7CB3-4B6D-A33F-B47682043EC8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BB8B4C0D-3618-4B7C-8517-C4F44C1B4A5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB8B4C0D-3618-4B7C-8517-C4F44C1B4A5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB8B4C0D-3618-4B7C-8517-C4F44C1B4A5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB8B4C0D-3618-4B7C-8517-C4F44C1B4A5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E25D1CA-FEC7-4B70-91B2-0B85A563E355}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E25D1CA-FEC7-4B70-91B2-0B85A563E355}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E25D1CA-FEC7-4B70-91B2-0B85A563E355}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E25D1CA-FEC7-4B70-91B2-0B85A563E355}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C3C0CD2-943B-45C9-A9F5-178FF6396549}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C3C0CD2-943B-45C9-A9F5-178FF6396549}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C3C0CD2-943B-45C9-A9F5-178FF6396549}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C3C0CD2-943B-45C9-A9F5-178FF6396549}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56B30BDE-7CB3-4B6D-A33F-B47682043EC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56B30BDE-7CB3-4B6D-A33F-B47682043EC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56B30BDE-7CB3-4B6D-A33F-B47682043EC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56B30BDE-7CB3-4B6D-A33F-B47682043EC8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BB8B4C0D-3618-4B7C-8517-C4F44C1B4A5F} = {748B3F0D-9CE9-4907-993B-3E74D3598C9E}
+		{8E25D1CA-FEC7-4B70-91B2-0B85A563E355} = {B661AA78-049F-45A1-810D-2153E83B3A09}
+		{5C3C0CD2-943B-45C9-A9F5-178FF6396549} = {B661AA78-049F-45A1-810D-2153E83B3A09}
+		{56B30BDE-7CB3-4B6D-A33F-B47682043EC8} = {B661AA78-049F-45A1-810D-2153E83B3A09}
+	EndGlobalSection
+EndGlobal

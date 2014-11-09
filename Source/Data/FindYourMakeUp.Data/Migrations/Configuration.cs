@@ -10,7 +10,8 @@ namespace FindYourMakeUp.Data.Migrations
         public Configuration()
         {
             this.AutomaticMigrationsEnabled = true;
-            this.AutomaticMigrationDataLossAllowed = true; // TODO: Remove
+            this.AutomaticMigrationDataLossAllowed = true;
+            ContextKey = "FindYourMakeUp.Data.ApplicationDbContext";
         }
 
         protected override void Seed(ApplicationDbContext context)
