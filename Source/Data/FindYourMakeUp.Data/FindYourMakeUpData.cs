@@ -8,7 +8,7 @@
     using FindYourMakeUp.Data.Models;
     using FindYourMakeUp.Data.UoW;
 
-    class FindYourMakeUpData : IData
+    public class FindYourMakeUpData : IData
     {
         private DbContext context;
         private IDictionary<Type, object> repositories;
@@ -24,7 +24,7 @@
             get { return this.GetRepository<ApplicationUser>(); }
         }
 
-   
+
         public IRepository<Category> Categories
         {
             get { return this.GetRepository<Category>(); }
@@ -54,7 +54,7 @@
         {
             get { return this.GetRepository<Review>(); }
         }
-        
+
         public int SaveChanges()
         {
             return this.context.SaveChanges();
