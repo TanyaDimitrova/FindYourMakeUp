@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using FindYourMakeUp.Web.Models;
+using FindYourMakeUp.Data.Models;
 
 namespace FindYourMakeUp.Web.Controllers
 {
