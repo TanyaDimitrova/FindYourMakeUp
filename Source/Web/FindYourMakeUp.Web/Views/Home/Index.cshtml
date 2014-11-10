@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<FindYourMakeUp.Web.ViewModels.Home.IndexProductsViewModel>
+
+@{
     ViewBag.Title = "Home Page";
 }
 
@@ -11,6 +13,12 @@
     </div>
 </div>
 
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <h1>@item.Name</h1>
+    }
+</div>
 
 
 @section scripts{

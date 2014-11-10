@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "Administration";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@ViewBag.Title</h1>
+
+@RenderBody()
+
+@section scripts {
+    @RenderSection("scripts", required: false)
+}

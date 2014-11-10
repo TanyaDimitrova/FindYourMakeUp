@@ -16,7 +16,7 @@
             this.CurrentUser = data.Users.GetById(Thread.CurrentPrincipal.Identity.GetUserId());
         }
 
-        public IData Data
+        protected IData Data
         {
             get
             {
@@ -29,6 +29,6 @@
             }
         }
 
-        public ApplicationUser CurrentUser { get; private set; }
+        protected ApplicationUser CurrentUser { get; private set; }
     }
 }
