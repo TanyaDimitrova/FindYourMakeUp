@@ -56,6 +56,8 @@
     <Compile Include="FindYourMakeUpData.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\DeletableEntityRepository.cs" />
+    <Compile Include="Repositories\GenericEFRepository.cs" />
     <Compile Include="UoW\IData.cs" />
   </ItemGroup>
   <ItemGroup>

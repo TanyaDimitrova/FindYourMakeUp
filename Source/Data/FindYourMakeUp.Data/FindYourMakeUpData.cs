@@ -6,6 +6,7 @@
 
     using FindYourMakeUp.Data.Contracts.Repositories;
     using FindYourMakeUp.Data.Models;
+    using FindYourMakeUp.Data.Repositories;
     using FindYourMakeUp.Data.UoW;
 
     public class FindYourMakeUpData : IData
@@ -17,6 +18,14 @@
         {
             this.context = context;
             this.repositories = new Dictionary<Type, object>();
+        }
+
+        public DbContext Context
+        {
+            get
+            {
+                return this.context;
+            }
         }
 
         public IRepository<ApplicationUser> Users
@@ -71,7 +80,5 @@
 
             return (IRepository<T>)this.repositories[typeOfRepository];
         }
-
-
     }
 }
