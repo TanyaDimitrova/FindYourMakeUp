@@ -14,7 +14,7 @@ namespace FindYourMakeUp.Web.Controllers
 {
     public class HomeController : BaseController
     {
-        public HomeController(IData data)
+        public HomeController(IFindYourMakeUpData data)
             : base(data)
         {
         }

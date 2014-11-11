@@ -8,15 +8,15 @@
 
     public abstract class BaseController : Controller
     {
-        private IData data;
+        private IFindYourMakeUpData data;
 
-        public BaseController(IData data)
+        public BaseController(IFindYourMakeUpData data)
         {
             this.Data = data;
             this.CurrentUser = data.Users.GetById(Thread.CurrentPrincipal.Identity.GetUserId());
         }
 
-        protected IData Data
+        protected IFindYourMakeUpData Data
         {
             get
             {

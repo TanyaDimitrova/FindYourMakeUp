@@ -2,34 +2,28 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public class Category
     {
-        private ICollection<Purpose> purposes;
-
         public Category()
         {
-            this.purposes = new HashSet<Purpose>();
+            //TODO: Refactor!
+            this.ProductTypes = new HashSet<ProductType>();
         }
 
         [Key]
         public int Id { get; set; }
 
+        [Index]
         [Required]
-        [MinLength(3)]
+        [StringLength(100, MinimumLength=3)]
         public string Name { get; set; }
 
-        public virtual ICollection<Purpose> Purposes
-        {
-            get
-            {
-                return this.purposes;
-            }
+        public int? ParentCategoryId { get; set; }
 
-            private set
-            {
-                this.purposes = value;
-            }
-        }
+        public Category ParentCategory { get; set; }
+
+        public ICollection<ProductType> ProductTypes { get; set; }
     }
 }

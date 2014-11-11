@@ -9,7 +9,7 @@
     using FindYourMakeUp.Data.Repositories;
     using FindYourMakeUp.Data.UoW;
 
-    public class FindYourMakeUpData : IData
+    public class FindYourMakeUpData : IFindYourMakeUpData
     {
         private DbContext context;
         private IDictionary<Type, object> repositories;
@@ -53,12 +53,7 @@
         {
             get { return this.GetRepository<ProductType>(); }
         }
-
-        public IRepository<Purpose> Purposes
-        {
-            get { return this.GetRepository<Purpose>(); }
-        }
-
+        
         public IRepository<Review> Reviews
         {
             get { return this.GetRepository<Review>(); }

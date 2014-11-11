@@ -31,8 +31,6 @@
 
         public IDbSet<ProductType> ProductTypes { get; set; }
 
-        public IDbSet<Purpose> Purposes { get; set; }
-
         public IDbSet<Review> Reviews { get; set; }
 
         public override int SaveChanges()

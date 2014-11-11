@@ -3,7 +3,7 @@
     using FindYourMakeUp.Data.Contracts.Repositories;
     using FindYourMakeUp.Data.Models;
 
-    public interface IData
+    public interface IFindYourMakeUpData
     {
         IRepository<ApplicationUser> Users { get; }
 
@@ -14,8 +14,6 @@
         IRepository<Product> Products { get; }
 
         IRepository<ProductType> ProductTypes { get; }
-
-        IRepository<Purpose> Purposes { get; }
 
         IRepository<Review> Reviews { get; }
 

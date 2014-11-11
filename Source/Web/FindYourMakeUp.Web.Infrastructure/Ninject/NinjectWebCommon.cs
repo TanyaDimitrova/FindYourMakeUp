@@ -66,7 +66,7 @@ namespace FindYourMakeUp.Web.Infrastructure
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<DbContext>().To<FindYourMakeUpDbContext>();
-            kernel.Bind<IData>().To<FindYourMakeUpData>();
+            kernel.Bind<IFindYourMakeUpData>().To<FindYourMakeUpData>();
         }
     }
 }

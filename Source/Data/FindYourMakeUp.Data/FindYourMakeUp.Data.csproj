@@ -58,7 +58,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\DeletableEntityRepository.cs" />
     <Compile Include="Repositories\GenericEFRepository.cs" />
-    <Compile Include="UoW\IData.cs" />
+    <Compile Include="UoW\IFindYourMakeUpData.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FindYourMakeUp.Data.Contracts\FindYourMakeUp.Data.Contracts.csproj">

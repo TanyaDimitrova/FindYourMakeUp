@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
     {
         public ProductType()
         {
-            this.Purposes = new HashSet<Purpose>();// TODO: Refactor!
+            this.Categories = new HashSet<Category>();// TODO: Refactor!
         }
         [Key]
         public int Id { get; set; }
@@ -16,6 +16,6 @@ using System.ComponentModel.DataAnnotations;
         [MinLength(3)]
         public string Name { get; set; }
 
-        public virtual ICollection<Purpose> Purposes { get; set; }
+        public virtual ICollection<Category> Categories { get; set; }
     }
 }

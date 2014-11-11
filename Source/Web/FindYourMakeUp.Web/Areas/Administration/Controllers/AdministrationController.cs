@@ -9,7 +9,7 @@
     //[Authorize(Roles = "Admin")]
     public abstract class AdministrationController : BaseController
     {
-        public AdministrationController(IData data)
+        public AdministrationController(IFindYourMakeUpData data)
             : base(data)
         {
         }

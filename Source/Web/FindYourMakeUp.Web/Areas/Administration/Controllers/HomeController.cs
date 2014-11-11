@@ -6,7 +6,7 @@
 
     public class HomeController : AdministrationController
     {
-        public HomeController(IData data)
+        public HomeController(IFindYourMakeUpData data)
             : base(data)
         {
         }
