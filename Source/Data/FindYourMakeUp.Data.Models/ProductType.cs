@@ -1,14 +1,15 @@
 namespace FindYourMakeUp.Data.Models
 {
     using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations;
 
     public class ProductType
     {
         public ProductType()
         {
-            this.Categories = new HashSet<Category>();// TODO: Refactor!
+            this.Categories = new HashSet<Category>(); // TODO: Refactor!
         }
+
         [Key]
         public int Id { get; set; }
 

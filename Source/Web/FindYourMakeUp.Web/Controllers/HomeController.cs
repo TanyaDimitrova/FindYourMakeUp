@@ -1,17 +1,11 @@
-﻿using FindYourMakeUp.Data.UoW;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-
-using AutoMapper.QueryableExtensions;
-using FindYourMakeUp.Web.ViewModels.Home;
-using FindYourMakeUp.Data.Models;
-
-namespace FindYourMakeUp.Web.Controllers
+﻿namespace FindYourMakeUp.Web.Controllers
 {
+    using System.IO;
+    using System.Linq;
+    using System.Web.Mvc;
+
+    using FindYourMakeUp.Data.UoW;
+
     public class HomeController : BaseController
     {
         public HomeController(IFindYourMakeUpData data)
@@ -25,9 +19,25 @@ namespace FindYourMakeUp.Web.Controllers
             int count = myDir.GetFiles().Length;
             ViewBag.Count = count;
 
-            var products = this.Data.Products.All().Project().To<IndexProductsViewModel>();
+            var products = this.Data.Products.All().ToList().OrderBy(p => p.Rating).First().Category.Name;
 
-            return View(products);
+            ViewData["Category"] = products;
+            var categories = this.Data.Categories.All().Where(c => c.ParentCategoryId == null).ToList();
+            ViewBag.Categories = categories;
+            return View(categories);
+        }
+
+        [HttpPost]
+        public ActionResult Index(int emp)
+        {
+            return View(emp);
+        }
+
+        public ActionResult GetSubCategoriesNames(int categoryId)
+        {
+            var cats = this.Data.Categories.All().Where(c => c.ParentCategoryId == categoryId).ToArray();
+
+            return Json(cats);
         }
     }
 }

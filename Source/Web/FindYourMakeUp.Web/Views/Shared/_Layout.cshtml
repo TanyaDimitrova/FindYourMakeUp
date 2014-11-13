@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - FindYourMakeUp</title>
     @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/modernizr")
-
+    @RenderSection("styles", required: false)
+    @Styles.Render("~/Content/custom")
     <meta name="description" content="Find the best make up for you" />
 </head>
 <body>
@@ -22,8 +24,13 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "Index", "Home")</li>
+                    <li class="dropdown">@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Hair<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Colored", "Colored")</li>
+                        </ul>
+                    </li>
                     <li>@Html.ActionLink("Contact", "Index", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
@@ -38,7 +45,7 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
+    //  @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>

@@ -8,8 +8,9 @@
     {
         public Category()
         {
-            //TODO: Refactor!
+            // TODO: Refactor!
             this.ProductTypes = new HashSet<ProductType>();
+            this.Children = new HashSet<Category>();
         }
 
         [Key]
@@ -17,13 +18,18 @@
 
         [Index]
         [Required]
-        [StringLength(100, MinimumLength=3)]
+        [StringLength(100, MinimumLength = 3)]
         public string Name { get; set; }
 
         public int? ParentCategoryId { get; set; }
 
         public Category ParentCategory { get; set; }
 
+        [InverseProperty("ParentCategory")]
+        public ICollection<Category> Children { get; set; }
+
         public ICollection<ProductType> ProductTypes { get; set; }
+
+        public ICollection<Product> Products { get; set; }
     }
 }

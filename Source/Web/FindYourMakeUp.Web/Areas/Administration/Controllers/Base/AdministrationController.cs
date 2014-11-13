@@ -1,4 +1,4 @@
-﻿namespace FindYourMakeUp.Web.Areas.Administration.Controllers
+﻿namespace FindYourMakeUp.Web.Areas.Administration.Controllers.Base
 {
     using System.Web.Mvc;
 

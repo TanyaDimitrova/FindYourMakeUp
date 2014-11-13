@@ -2,13 +2,14 @@
 {
     using System;
     using System.Data.Entity;
+    using System.Globalization;
     using System.Linq;
-
-    using Microsoft.AspNet.Identity.EntityFramework;
 
     using FindYourMakeUp.Data.Contracts.Models;
     using FindYourMakeUp.Data.Migrations;
     using FindYourMakeUp.Data.Models;
+
+    using Microsoft.AspNet.Identity.EntityFramework;
 
     public class FindYourMakeUpDbContext : IdentityDbContext<ApplicationUser>
     {
@@ -16,11 +17,6 @@
             : base("DefaultConnection", throwIfV1Schema: false)
         {
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<FindYourMakeUpDbContext, Configuration>());
-        }
-
-        public static FindYourMakeUpDbContext Create()
-        {
-            return new FindYourMakeUpDbContext();
         }
 
         public IDbSet<Product> Products { get; set; }
@@ -32,6 +28,11 @@
         public IDbSet<ProductType> ProductTypes { get; set; }
 
         public IDbSet<Review> Reviews { get; set; }
+
+        public static FindYourMakeUpDbContext Create()
+        {
+            return new FindYourMakeUpDbContext();
+        }
 
         public override int SaveChanges()
         {
@@ -50,7 +51,7 @@
                         e.Entity is IAuditInfo && ((e.State == EntityState.Added) || (e.State == EntityState.Modified))))
             {
                 var entity = (IAuditInfo)entry.Entity;
-
+                var provider = CultureInfo.InvariantCulture;
                 if (entry.State == EntityState.Added)
                 {
                     if (!entity.PreserveCreatedOn)

@@ -11,25 +11,44 @@ namespace FindYourMakeUp.Data.Migrations
         {
             this.AutomaticMigrationsEnabled = true;
             this.AutomaticMigrationDataLossAllowed = true;
-            ContextKey = "FindYourMakeUp.Data.ApplicationDbContext";
+            this.ContextKey = "FindYourMakeUp.Data.ApplicationDbContext";
         }
 
         protected override void Seed(FindYourMakeUpDbContext context)
         {
             if (!context.Categories.Any())
             {
-                SeedCategories(context);
+                this.SeedCategories(context);
             }
 
             if (!context.ProductTypes.Any())
             {
-                SeedProductTypes(context);
+                this.SeedProductTypes(context);
             }
 
             if (!context.Manufacturers.Any())
             {
-                SeedManufacturers(context);
+                this.SeedManufacturers(context);
             }
+
+            if (!context.Products.Any())
+            {
+                this.SeedProducts(context);
+            }
+        }
+
+        private void SeedProducts(FindYourMakeUpDbContext context)
+        {
+            context.Products.Add(new Product
+            {
+                Name = "Sensibio",
+                Description = "Face cream for sensitive skin",
+                ManufacturerId = context.Manufacturers.Where(m => m.Name == "Bioderma").First().Id,
+                ProductTypeId = context.ProductTypes.Where(p => p.Name == "Face creame").First().Id,
+                CategoryId = context.Categories.Where(c => c.Name == "Face").First().Id
+            });
+
+            context.SaveChanges();
         }
 
         private void SeedManufacturers(FindYourMakeUpDbContext context)
@@ -48,29 +67,29 @@ namespace FindYourMakeUp.Data.Migrations
             var condType = new ProductType { Name = "Conditioner" };
             var maskType = new ProductType { Name = "Mask" };
 
-            var hairCategories = context.Categories.Where(p => p.ParentCategory.Name == "Hair").ToList();
+            var hairCategories = context.Categories.Where(c => c.ParentCategory.Name == "Hair").ToList();
 
-            foreach (var purpose in hairCategories)
+            foreach (var subCategory in hairCategories)
             {
-                purpose.ProductTypes.Add(shampooType);
-                purpose.ProductTypes.Add(condType);
-                purpose.ProductTypes.Add(maskType);
+                subCategory.ProductTypes.Add(shampooType);
+                subCategory.ProductTypes.Add(condType);
+                subCategory.ProductTypes.Add(maskType);
             }
 
             context.Categories
-                   .Where(p => p.Name == "Hygiene" && p.ParentCategory.Name == "Body")
+                   .Where(c => c.Name == "Hygiene" && c.ParentCategory.Name == "Body")
                    .First()
                    .ProductTypes
                    .Add(new ProductType { Name = "Shower" });
 
             context.Categories
-                   .Where(p => p.Name == "Skin Care" && p.ParentCategory.Name == "Body")
+                   .Where(c => c.Name == "Skin Care" && c.ParentCategory.Name == "Body")
                    .First()
                    .ProductTypes
                    .Add(new ProductType { Name = "Body Lotion" });
 
             var makeup = context.Categories
-                                .Where(p => p.Name == "Make Up" && p.ParentCategory.Name == "Face")
+                                .Where(c => c.Name == "Make Up" && c.ParentCategory.Name == "Face")
                                 .First();
 
             makeup.ProductTypes.Add(new ProductType { Name = "Lip stick & Gloss" });
@@ -78,6 +97,11 @@ namespace FindYourMakeUp.Data.Migrations
             makeup.ProductTypes.Add(new ProductType { Name = "Foundation" });
             makeup.ProductTypes.Add(new ProductType { Name = "Eye shadow" });
 
+            var faceCare = context.Categories
+                              .Where(c => c.Name == "Skin Care" && c.ParentCategory.Name == "Face")
+                              .First();
+
+            makeup.ProductTypes.Add(new ProductType { Name = "Face creame" });
             context.SaveChanges();
         }
 

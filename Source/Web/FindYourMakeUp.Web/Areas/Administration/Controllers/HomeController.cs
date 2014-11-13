@@ -3,6 +3,7 @@
     using System.Web.Mvc;
 
     using FindYourMakeUp.Data.UoW;
+    using FindYourMakeUp.Web.Areas.Administration.Controllers.Base;
 
     public class HomeController : AdministrationController
     {

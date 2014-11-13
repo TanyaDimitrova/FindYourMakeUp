@@ -3,7 +3,9 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public class Product
+    using FindYourMakeUp.Data.Contracts.Models;
+
+    public class Product : AuditInfo
     {
         private ICollection<Review> reviews;
 
@@ -27,6 +29,29 @@
         public int ProductTypeId { get; set; }
 
         public virtual ProductType ProductType { get; set; }
+
+        public int CategoryId { get; set; }
+
+        public virtual Category Category { get; set; }
+
+        public double Rating
+        {
+            get
+            {
+                if (this.reviews.Count == 0)
+                {
+                    return 0;
+                }
+
+                int allRates = 0;
+                foreach (var review in this.Reviews)
+                {
+                    allRates += review.Rate;
+                }
+
+                return allRates / this.Reviews.Count;
+            }
+        }
 
         public virtual ICollection<Review> Reviews
         {

@@ -1,10 +1,14 @@
 ﻿namespace FindYourMakeUp.Data.UoW
 {
+    using System.Data.Entity;
+
     using FindYourMakeUp.Data.Contracts.Repositories;
     using FindYourMakeUp.Data.Models;
 
     public interface IFindYourMakeUpData
     {
+        DbContext Context { get; }
+
         IRepository<ApplicationUser> Users { get; }
 
         IRepository<Category> Categories { get; }

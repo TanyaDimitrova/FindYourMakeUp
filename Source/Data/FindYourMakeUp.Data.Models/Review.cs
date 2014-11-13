@@ -12,8 +12,8 @@
         public string Content { get; set; }
 
         [Required]
-        [Range(0,10)]
-        public int Rating { get; set; }
+        [Range(0, 10)]
+        public int Rate { get; set; }
 
         [Required]
         public int ProductId { get; set; }

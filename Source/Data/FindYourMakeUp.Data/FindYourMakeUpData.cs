@@ -33,7 +33,6 @@
             get { return this.GetRepository<ApplicationUser>(); }
         }
 
-
         public IRepository<Category> Categories
         {
             get { return this.GetRepository<Category>(); }
@@ -69,7 +68,7 @@
             var typeOfRepository = typeof(T);
             if (!this.repositories.ContainsKey(typeOfRepository))
             {
-                var newRepository = Activator.CreateInstance(typeof(GenericEFRepository<T>), context);
+                var newRepository = Activator.CreateInstance(typeof(GenericEFRepository<T>), this.context);
                 this.repositories.Add(typeOfRepository, newRepository);
             }
 

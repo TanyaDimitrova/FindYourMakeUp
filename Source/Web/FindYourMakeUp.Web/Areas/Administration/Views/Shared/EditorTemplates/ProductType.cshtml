@@ -1,0 +1,5 @@
+﻿@(Html.Kendo().DropDownList()
+    .Name("ProductTypeId")
+    .DataValueField("Id")
+    .DataTextField("Name")
+            .BindTo((System.Collections.IEnumerable)ViewData["ProductTypes"]))

@@ -12,7 +12,6 @@
             this.productTypes = new HashSet<ProductType>();
         }
 
-
         [Key]
         public int Id { get; set; }
 

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<FindYourMakeUp.Web.ViewModels.Home.IndexProductsViewModel>
+﻿@model IEnumerable<FindYourMakeUp.Data.Models.Category>
 
 @{
     ViewBag.Title = "Home Page";
@@ -12,13 +12,33 @@
         }
     </div>
 </div>
+<h1>@ViewData["Category"]</h1>
 
-<div class="row">
-    @foreach (var item in Model)
-    {
-        <h1>@item.Name</h1>
-    }
-</div>
+
+
+@using (Html.BeginForm())
+{
+    <div class="input-group form-group">
+        <span class="input-group-addon">Category</span>
+        <select id="state" name="state" class="form-control">
+            <option id="" value="oras">– Choose –</option>
+            @foreach (var c in Model)
+            {
+            <option id="@c.Id" value="@c.Id">@c.Name</option> }
+        </select>
+    </div>
+
+    <div class="input-group form-group">
+        <span class="input-group-addon">Type</span>
+        <select id="city" name="city" class="form-control">
+            <option id="" value="oras">– Choose –</option>
+
+        </select>
+    </div>
+}
+
+
+
 
 
 @section scripts{
@@ -33,4 +53,20 @@
                         10000);
         });
     </script>
+
+<script>
+    $('#state').change(function (e) {
+        e.preventDefault();
+        var url = '@Url.Action("GetSubCategoriesNames", "Home")';
+        var categoryId = $('#state option:selected').val();
+        $.post(url, { categoryId: categoryId }, function (data) {
+            var items = [];
+            items.push("<option>–Choose–</option>");
+            $.each(data, function () {
+                items.push("<option value=" + this.Name + ">" + this.Name + "</option>");
+            });
+            $("#city").html(items.join(' '));
+        });
+    });
+</script>
 }
