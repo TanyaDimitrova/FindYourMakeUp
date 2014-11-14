@@ -2,6 +2,7 @@
 using Owin;
 
 [assembly: OwinStartupAttribute(typeof(FindYourMakeUp.Web.Startup))]
+
 namespace FindYourMakeUp.Web
 {
     public partial class Startup

@@ -1,7 +1,7 @@
-﻿using System.Web.Mvc;
-
-namespace FindYourMakeUp.Web.Areas.Administration
+﻿namespace FindYourMakeUp.Web.Areas.Administration
 {
+    using System.Web.Mvc;
+
     public class AdministrationAreaRegistration : AreaRegistration
     {
         public override string AreaName

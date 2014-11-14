@@ -4,6 +4,7 @@
 namespace FindYourMakeUp.Web.Infrastructure
 {
     using System;
+    using System.Data.Entity;
     using System.Web;
 
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
@@ -13,7 +14,6 @@ namespace FindYourMakeUp.Web.Infrastructure
 
     using FindYourMakeUp.Data;
     using FindYourMakeUp.Data.UoW;
-    using System.Data.Entity;
 
     public static class NinjectWebCommon
     {

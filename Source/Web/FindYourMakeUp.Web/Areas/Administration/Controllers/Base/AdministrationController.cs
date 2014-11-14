@@ -6,7 +6,7 @@
     using FindYourMakeUp.Web.Controllers;
 
     // TODO: Remove comment
-    //[Authorize(Roles = "Admin")]
+    // [Authorize(Roles = "Admin")]
     public abstract class AdministrationController : BaseController
     {
         public AdministrationController(IFindYourMakeUpData data)

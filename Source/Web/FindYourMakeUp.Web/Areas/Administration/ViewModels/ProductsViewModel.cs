@@ -1,11 +1,13 @@
-﻿using AutoMapper;
-using FindYourMakeUp.Data.Models;
-using FindYourMakeUp.Web.Areas.Administration.ViewModels.Base;
-using FindYourMakeUp.Web.Infrastructure.Mapping;
-using System.ComponentModel.DataAnnotations;
-
-namespace FindYourMakeUp.Web.Areas.Administration.ViewModels
+﻿namespace FindYourMakeUp.Web.Areas.Administration.ViewModels
 {
+    using System.ComponentModel.DataAnnotations;
+
+    using AutoMapper;
+    
+    using FindYourMakeUp.Data.Models;
+    using FindYourMakeUp.Web.Areas.Administration.ViewModels.Base;
+    using FindYourMakeUp.Web.Infrastructure.Mapping;
+
     public class ProductsViewModel : AdministrationViewModel, IMapFrom<Product>, IHaveCustomMappings
     {
         public int? Id { get; set; }
@@ -30,7 +32,6 @@ namespace FindYourMakeUp.Web.Areas.Administration.ViewModels
         public int ProductTypeId { get; set; }
 
         public string ProductTypeName { get; set; }
-
 
         public void CreateMappings(IConfiguration configuration)
         {

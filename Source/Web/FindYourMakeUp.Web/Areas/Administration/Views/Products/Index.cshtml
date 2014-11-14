@@ -20,8 +20,8 @@
           cols.Bound(pr => pr.CategoryId).ClientTemplate("#= CategoryName #");
           cols.Bound(pr => pr.ManufacturerId).ClientTemplate("#= ManufacturerName #");
           cols.Bound(pr => pr.ProductTypeId).ClientTemplate("#= ProductTypeName #");
-          cols.Command(com => com.Edit()).Title("Промяна");
-          cols.Command(com => com.Destroy()).Title("Изтриване");
+          cols.Command(com => com.Edit()).Title("Edit");
+          cols.Command(com => com.Destroy()).Title("Delete");
       })
       .ColumnMenu()
       .Pageable(page => page.Refresh(true))
@@ -39,7 +39,6 @@
                                   m.Field(p => p.CategoryId).DefaultValue((ViewData["DefaultCategories"] as CategoryViewModel).Id);
                                   m.Field(p => p.ManufacturerId).DefaultValue((ViewData["DefaultManufacturers"] as ManufacturerViewModel).Id);
                                   m.Field(p => p.ProductTypeId).DefaultValue((ViewData["DefaultProductTypes"] as ProductTypeViewModel).Id);
-                                  
                               })
                               .Read(read => read.Action("Read", ControllerName))
                               .Create(create => create.Action("Create", ControllerName))

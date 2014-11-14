@@ -21,23 +21,23 @@
 
             var products = this.Data.Products.All().ToList().OrderBy(p => p.Rating).First().Category.Name;
 
-            ViewData["Category"] = products;
+            this.ViewData["Category"] = products;
             var categories = this.Data.Categories.All().Where(c => c.ParentCategoryId == null).ToList();
             ViewBag.Categories = categories;
-            return View(categories);
+            return this.View(categories);
         }
 
         [HttpPost]
         public ActionResult Index(int emp)
         {
-            return View(emp);
+            return this.View(emp);
         }
 
         public ActionResult GetSubCategoriesNames(int categoryId)
         {
             var cats = this.Data.Categories.All().Where(c => c.ParentCategoryId == categoryId).ToArray();
 
-            return Json(cats);
+            return this.Json(cats);
         }
     }
 }

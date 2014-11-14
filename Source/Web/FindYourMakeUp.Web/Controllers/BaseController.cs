@@ -1,10 +1,12 @@
 ﻿namespace FindYourMakeUp.Web.Controllers
 {
-    using FindYourMakeUp.Data.Models;
-    using FindYourMakeUp.Data.UoW;
     using System.Threading;
     using System.Web.Mvc;
+
     using Microsoft.AspNet.Identity;
+
+    using FindYourMakeUp.Data.Models;
+    using FindYourMakeUp.Data.UoW;
 
     public abstract class BaseController : Controller
     {

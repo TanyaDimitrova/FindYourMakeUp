@@ -1,19 +1,18 @@
-﻿using System.Collections;
-using System.Web.Mvc;
-
-using FindYourMakeUp.Data;
-
-using Kendo.Mvc.UI;
-using Kendo.Mvc.Extensions;
-using System.Data.Entity;
-using AutoMapper;
-using FindYourMakeUp.Web.Areas.Administration.ViewModels.Base;
-using FindYourMakeUp.Data.Contracts;
-using FindYourMakeUp.Data.UoW;
-using FindYourMakeUp.Data.Contracts.Models;
-
-namespace FindYourMakeUp.Web.Areas.Administration.Controllers.Base
+﻿namespace FindYourMakeUp.Web.Areas.Administration.Controllers.Base
 {
+    using System.Collections;
+    using System.Data.Entity;
+    using System.Web.Mvc;
+
+    using AutoMapper;
+
+    using Kendo.Mvc.Extensions;
+    using Kendo.Mvc.UI;
+
+    using FindYourMakeUp.Data.Contracts.Models;
+    using FindYourMakeUp.Data.UoW;
+    using FindYourMakeUp.Web.Areas.Administration.ViewModels.Base;
+
     public abstract class KendoGridAdministrationController : AdministrationController
     {
         public KendoGridAdministrationController(IFindYourMakeUpData data)
@@ -26,8 +25,7 @@ namespace FindYourMakeUp.Web.Areas.Administration.Controllers.Base
         protected abstract T GetById<T>(object id) where T : class;
 
         [HttpPost]
-        public ActionResult Read([DataSourceRequest]
-                                 DataSourceRequest request)
+        public ActionResult Read([DataSourceRequest]DataSourceRequest request)
         {
             var ads =
                 this.GetData()
@@ -67,10 +65,9 @@ namespace FindYourMakeUp.Web.Areas.Administration.Controllers.Base
             return null;
         }
 
-        protected JsonResult GridOperation<T>(T model, [DataSourceRequest]
-                                              DataSourceRequest request)
+        protected JsonResult GridOperation<T>(T model, [DataSourceRequest]DataSourceRequest request)
         {
-            return Json(new[] { model }.ToDataSourceResult(request, ModelState));
+            return this.Json(new[] { model }.ToDataSourceResult(request, this.ModelState));
         }
 
         private void ChangeEntityStateAndSave(object dbModel, EntityState state)
