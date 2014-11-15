@@ -76,7 +76,7 @@
 
         private void PopulateCategories()
         {
-            var categories = this.Data.Categories.All().OrderBy(c => c.Name).Project().To<CategoryViewModel>();
+            var categories = this.Data.Categories.All().OrderBy(c => c.Name).Project().To<CategoriesViewModel>();
 
             this.ViewData["Categories"] = categories;
             this.ViewData["DefaultCategories"] = categories.FirstOrDefault();

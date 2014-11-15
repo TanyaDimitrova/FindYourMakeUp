@@ -8,6 +8,7 @@ namespace FindYourMakeUp.Data.Models
         public ProductType()
         {
             this.Categories = new HashSet<Category>(); // TODO: Refactor!
+            this.Products = new HashSet<Product>();
         }
 
         [Key]
@@ -18,5 +19,7 @@ namespace FindYourMakeUp.Data.Models
         public string Name { get; set; }
 
         public virtual ICollection<Category> Categories { get; set; }
+
+        public virtual ICollection<Product> Products { get; set; }
     }
 }

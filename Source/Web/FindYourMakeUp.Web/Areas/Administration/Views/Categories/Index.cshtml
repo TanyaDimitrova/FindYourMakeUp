@@ -1,8 +1,8 @@
 ﻿@using FindYourMakeUp.Web.Areas.Administration.ViewModels
 
 @{
-    ViewBag.Title = "Products administration";
-    const string ControllerName = "Products";
+    ViewBag.Title = "Categories administration";
+    const string ControllerName = "Categories";
 }
 
 <h2>@ViewBag.Title</h2>
@@ -10,16 +10,16 @@
 @Html.ValidationSummary()
 
 @(Html.Kendo()
-      .Grid<ProductsViewModel>()
+          .Grid<CategoriesParentsViewModel>()
       .Name("grid")
       .Columns(cols =>
       {
           cols.Bound(pr => pr.Id).Hidden();
           cols.Bound(pr => pr.Name);
-          cols.Bound(pr => pr.Description);
-          cols.Bound(pr => pr.ManufacturerId).ClientTemplate("#= ManufacturerName #").Title("Manufacturer").ClientGroupHeaderTemplate("#= Manufacturer.Name #");
-          cols.Bound(pr => pr.CategoryId).ClientTemplate("#= CategoryName #").Title("Category");
-          cols.Bound(pr => pr.ProductTypeId).ClientTemplate("#= ProductTypeName #").Title("Product Type");
+          cols.Bound(pr => pr.ParentCategoryName).ClientTemplate("#= ParentCategoryName #").Title("Parent Category"); 
+          //cols.Bound(pr => pr.ManufacturerId).ClientTemplate("#= ManufacturerName #").Title("Manufacturer").ClientGroupHeaderTemplate("#= Manufacturer.Name #");
+          //cols.Bound(pr => pr.CategoryId).ClientTemplate("#= CategoryName #").Title("Category");
+          //cols.Bound(pr => pr.ProductTypeId).ClientTemplate("#= ProductTypeName #").Title("Product Type");
           cols.Command(com => com.Edit()).Title("Edit");
           cols.Command(com => com.Destroy()).Title("Delete");
       })
@@ -41,10 +41,10 @@
                               .Model(m =>
                               {
                                   m.Id(adv => adv.Id);
-                                  m.Field(p => p.CreatedOn).Editable(false);
-                                  m.Field(p => p.CategoryId).DefaultValue((ViewData["DefaultCategories"] as CategoriesViewModel).Id);
-                                  m.Field(p => p.ManufacturerId).DefaultValue((ViewData["DefaultManufacturers"] as ManufacturerViewModel).Id);
-                                  m.Field(p => p.ProductTypeId).DefaultValue((ViewData["DefaultProductTypes"] as ProductTypeViewModel).Id);
+                                  //m.Field(p => p.CreatedOn).Editable(false);
+                                  m.Field(p => p.ParentCategoryName);
+                                  //m.Field(p => p.ManufacturerId).DefaultValue((ViewData["DefaultManufacturers"] as ManufacturerViewModel).Id);
+                                  //m.Field(p => p.ProductTypeId).DefaultValue((ViewData["DefaultProductTypes"] as FindYourMakeUp.Web.Areas.Administration.ViewModels.ProductTypeViewModel).Id);
                               })
                               .Read(read => read.Action("Read", ControllerName))
                               .Create(create => create.Action("Create", ControllerName))

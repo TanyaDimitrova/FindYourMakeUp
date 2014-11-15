@@ -1,0 +1,20 @@
+﻿@model ICollection<FindYourMakeUp.Data.Models.Product>
+<div class="container">
+    <table class="table table-striped ">
+        @foreach (var product in Model)
+        {
+            <tr class="row body-content">
+                <td class="col-md-4">@product.Name</td>
+                <td class="col-md-2">@product.Manufacturer.Name</td>
+                <td class="col-md-1">@product.Rating</td>
+                <td class="col-md-3">
+                    @product.ProductType.Name @product.Category.Name
+                    @if (product.Category.ParentCategory != null)
+                    {
+                        <span> @product.Category.ParentCategory.Name </span>
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+</div>

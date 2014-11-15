@@ -1,10 +1,11 @@
 ﻿namespace FindYourMakeUp.Data.Models
 {
+    using FindYourMakeUp.Data.Contracts.Models;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    public class Category
+    public class Category:AuditInfo
     {
         public Category()
         {
@@ -23,7 +24,7 @@
 
         public int? ParentCategoryId { get; set; }
 
-        public Category ParentCategory { get; set; }
+        public virtual Category ParentCategory { get; set; }
 
         [InverseProperty("ParentCategory")]
         public ICollection<Category> Children { get; set; }

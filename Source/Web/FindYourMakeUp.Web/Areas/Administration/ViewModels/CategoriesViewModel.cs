@@ -4,7 +4,7 @@
     using FindYourMakeUp.Web.Areas.Administration.ViewModels.Base;
     using FindYourMakeUp.Web.Infrastructure.Mapping;
 
-    public class ManufacturerViewModel : AdministrationViewModel, IMapFrom<Manufacturer>
+    public class CategoriesViewModel : AdministrationViewModel, IMapFrom<Category>
     {
         public int Id { get; set; }
 
