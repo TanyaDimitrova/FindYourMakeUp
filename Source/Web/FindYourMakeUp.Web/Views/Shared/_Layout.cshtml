@@ -7,6 +7,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/kendo")
     @RenderSection("styles", required: false)
     @Styles.Render("~/Content/custom")
     <meta name="description" content="Find the best make up for you" />
@@ -42,6 +43,15 @@
 
                 @Html.Partial("_LoginPartial")
             </div>
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+            }
+            
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+            }
 
         </div>
     </div>
@@ -53,8 +63,13 @@
         </footer>
     </div>
 
-    //  @Scripts.Render("~/bundles/jquery")
+    
     @Scripts.Render("~/bundles/bootstrap")
+        @Scripts.Render("~/bundles/kendo")
+        @Scripts.Render("~/bundles/jqueryval")
+    @*@Scripts.Render("~/bundles.unobtrusive-ajax")*@
+    
     @RenderSection("scripts", required: false)
 </body>
+
 </html>

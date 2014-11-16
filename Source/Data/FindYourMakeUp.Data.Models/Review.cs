@@ -1,8 +1,9 @@
 ﻿namespace FindYourMakeUp.Data.Models
 {
+    using FindYourMakeUp.Data.Contracts.Models;
     using System.ComponentModel.DataAnnotations;
 
-    public class Review
+    public class Review : DeletableEntity
     {
         [Key]
         public int Id { get; set; }
@@ -12,7 +13,7 @@
         public string Content { get; set; }
 
         [Required]
-        [Range(0, 10)]
+        [Range(-10, 10)]
         public int Rate { get; set; }
 
         [Required]

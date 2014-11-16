@@ -1,0 +1,43 @@
+﻿@model FindYourMakeUp.Web.IntpuViewModels.ReviewInputModel
+
+<div class="panel panel-default" id="create-panel">
+    <div class="panel-heading">Create review</div>
+    <div class="panel-body">
+        @using (Ajax.BeginForm("Create", "Reviews", null
+            , new AjaxOptions { OnSuccess = "onSuccess", HttpMethod = "POST", UpdateTargetId = "create-panel", InsertionMode = InsertionMode.ReplaceWith }, null))
+        {
+            @Html.ValidationSummary()
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.ProductId)
+            @Html.EditorFor(m => m.Content, "MultilineText")
+
+            @Html.EditorFor(m => m.Rate)
+            <div class="row">
+                <div class="col-md-3 col-md-offset-2">
+                    <input type="submit" value="ok" />
+                    @*@Ajax.ActionLink("Create review for this product", "Create", "Reviews",
+                        new AjaxOptions
+                        {
+                            HttpMethod = "POST",
+                            InsertionMode = InsertionMode.Replace,
+                            UpdateTargetId = "create-review"
+                        }, new { @class = "btn btn-success", type="submit" })*@
+                </div>
+            </div>
+
+        }
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+        var onSuccess = function (result) {
+            if (result.url) {
+                // if the server returned a JSON object containing an url
+                // property we redirect the browser to that url
+                window.location.href = result.url;
+            }
+        }
+    </script>
+}

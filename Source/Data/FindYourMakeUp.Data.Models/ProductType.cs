@@ -2,8 +2,9 @@ namespace FindYourMakeUp.Data.Models
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using FindYourMakeUp.Data.Contracts.Models;
 
-    public class ProductType
+    public class ProductType : DeletableEntity
     {
         public ProductType()
         {

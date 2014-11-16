@@ -50,7 +50,6 @@
          public ActionResult Details(int id)
          {
             var product = this.Data.Products.All().Where(p => p.Id == id).FirstOrDefault();
-
             return View(product);
          }
     }

@@ -6,7 +6,7 @@
     using FindYourMakeUp.Data.Contracts.Models;
     using System.ComponentModel;
 
-    public class Product : AuditInfo
+    public class Product : DeletableEntity
     {
         private ICollection<Review> reviews;
 
@@ -46,18 +46,18 @@
         {
             get
             {
-                if (this.reviews.Count == 0)
+             var   allreviews = this.Reviews;
+                if (allreviews.Count > 0)
                 {
-                    return 0;
-                }
+                    int allRates = 0;
+                    foreach (var review in allreviews)
+                    {
+                        allRates += review.Rate;
+                    }
 
-                int allRates = 0;
-                foreach (var review in this.Reviews)
-                {
-                    allRates += review.Rate;
+                    return allRates / allreviews.Count;
                 }
-
-                return allRates / this.Reviews.Count;
+                return 0;
             }
         }
 

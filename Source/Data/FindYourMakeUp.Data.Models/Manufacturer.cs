@@ -4,7 +4,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    public class Manufacturer : AuditInfo
+    public class Manufacturer : DeletableEntity
     {
         [Key]
         public int Id { get; set; }

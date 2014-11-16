@@ -1,6 +1,13 @@
 ﻿body {
 }
-
+.field-validation-valid
+{
+    display: none;
+}
+.validation-summary-valid
+{
+    display: none;
+}
     .slider img {
         height: 300pt;
         width:100%;

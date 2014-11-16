@@ -40,8 +40,22 @@
             if (model != null && ModelState.IsValid)
             {
                 var dbModel = Mapper.Map<T>(model);
-                this.ChangeEntityStateAndSave(dbModel, EntityState.Added);
+                int result = this.ChangeEntityStateAndSave(dbModel, EntityState.Added);
+                if (result == 1)
+                {
+                    TempData["SuccessMessage"] = "Item successfuly created";
+                }
                 return dbModel;
+            }
+            else
+            {
+                foreach (ModelState modelState in ViewData.ModelState.Values)
+                {
+                    foreach (ModelError error in modelState.Errors)
+                    {
+                        TempData["ErrorMessage"] += error.ErrorMessage;
+                    }
+                }
             }
 
             return null;
@@ -56,7 +70,7 @@
             {
                 TModel dbModel = this.GetById<TModel>(id);
                 Mapper.Map<TViewModel, TModel>(model, dbModel);
-                this.ChangeEntityStateAndSave(dbModel, EntityState.Modified);
+                int result = this.ChangeEntityStateAndSave(dbModel, EntityState.Modified);
 
                 model.ModifiedOn = dbModel.ModifiedOn;
 
@@ -71,11 +85,11 @@
             return this.Json(new[] { model }.ToDataSourceResult(request, this.ModelState));
         }
 
-        private void ChangeEntityStateAndSave(object dbModel, EntityState state)
+        private int ChangeEntityStateAndSave(object dbModel, EntityState state)
         {
             var entry = this.Data.Context.Entry(dbModel);
             entry.State = state;
-            this.Data.SaveChanges();
+            return this.Data.SaveChanges();
         }
     }
 }

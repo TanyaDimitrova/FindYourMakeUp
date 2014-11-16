@@ -20,8 +20,8 @@
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
-        [Required]
-        [Range(1, int.MaxValue)]
+        [Required(ErrorMessage="Subcategory is required")]
+        [Range(1, int.MaxValue,ErrorMessage="Choose category")]
         [UIHint("CascadeSubCategory")]
         public int CategoryId { get; set; }
 
@@ -40,8 +40,8 @@
 
         public string ManufacturerName { get; set; }
 
-        [Required]
-        [Range(1, int.MaxValue)]
+        [Required(ErrorMessage="Product type is required")]
+        [Range(1, int.MaxValue, ErrorMessage = "Product type is required")]
         [UIHint("ProductType")]
         public int ProductTypeId { get; set; }
 

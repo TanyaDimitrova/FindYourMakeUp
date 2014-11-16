@@ -5,7 +5,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    public class Category:AuditInfo
+    public class Category:DeletableEntity
     {
         public Category()
         {
