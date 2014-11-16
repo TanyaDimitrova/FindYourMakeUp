@@ -7,7 +7,7 @@
     using System.Web.Mvc;
 
     using AutoMapper.QueryableExtensions;
-   using Kendo.Mvc.UI;
+    using Kendo.Mvc.UI;
 
     using FindYourMakeUp.Data.UoW;
     using FindYourMakeUp.Web.Areas.Administration.Controllers.Base;
@@ -54,7 +54,7 @@
         public ActionResult Update([DataSourceRequest]DataSourceRequest request, ViewModel model)
         {
             var dbModel = base.Update<Model, ViewModel>(model, model.Id);
-            
+
             model.ManufacturerName = dbModel.Manufacturer.Name;
             model.CategoryName = dbModel.Category.Name;
             model.ProductTypeName = dbModel.ProductType.Name;
@@ -73,6 +73,42 @@
 
             return this.GridOperation(model, request);
         }
+
+        public JsonResult GetCascadeCategories()
+        {
+            var data = this.Data
+                .Categories
+                .All()
+                .Where(c => c.ParentCategoryId == null)
+                .Select(c => new { Id = c.Id, Name = c.Name });
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetCascadeSubCategories(int? categoryId)
+        {
+            var subCategories = this.Data.Categories.All();
+
+            if (categoryId != null)
+            {
+                subCategories = subCategories.Where(p => p.ParentCategoryId == categoryId);
+            }
+
+            return Json(subCategories.Select(p => new { Id = p.Id, Name = p.Name }), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetCascadeProducts(int? categoryId)
+        {
+            var productTypes = this.Data.ProductTypes.All();
+
+            if (categoryId != null)
+            {
+                productTypes = productTypes.Where(p => p.Categories.Any(c => c.Id == categoryId));
+            }
+
+            return Json(productTypes.Select(p => new { Id = p.Id, Name = p.Name }), JsonRequestBehavior.AllowGet);
+        }
+
 
         private void PopulateCategories()
         {
@@ -96,12 +132,6 @@
 
             this.ViewData["ProductTypes"] = productTypes;
             this.ViewData["DefaultProductTypes"] = productTypes.FirstOrDefault();
-        }
-
-        protected override IAsyncResult BeginExecute(System.Web.Routing.RequestContext requestContext, AsyncCallback callback, object state)
-        {
-            System.Threading.Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
-            return base.BeginExecute(requestContext, callback, state);
         }
     }
 }

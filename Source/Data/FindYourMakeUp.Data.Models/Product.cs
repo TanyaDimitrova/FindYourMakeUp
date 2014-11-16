@@ -4,6 +4,7 @@
     using System.ComponentModel.DataAnnotations;
 
     using FindYourMakeUp.Data.Contracts.Models;
+    using System.ComponentModel;
 
     public class Product : AuditInfo
     {
@@ -17,6 +18,8 @@
         [Key]
         public int Id { get; set; }
 
+        [Required]
+        [StringLength(150, MinimumLength = 3)]
         public string Name { get; set; }
 
         [Required]
@@ -24,16 +27,21 @@
 
         public virtual Manufacturer Manufacturer { get; set; }
 
+        [Required]
+        [StringLength(1000, MinimumLength = 3)]
         public string Description { get; set; }
 
+        [Required]
         public int ProductTypeId { get; set; }
 
         public virtual ProductType ProductType { get; set; }
 
+        [Required]
         public int CategoryId { get; set; }
 
         public virtual Category Category { get; set; }
 
+        [DefaultValue(0)]
         public double Rating
         {
             get

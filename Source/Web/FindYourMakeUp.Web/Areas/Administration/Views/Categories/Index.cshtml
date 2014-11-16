@@ -10,13 +10,21 @@
 @Html.ValidationSummary()
 
 @(Html.Kendo()
-          .Grid<CategoriesParentsViewModel>()
+      .Grid<CategoriesParentsViewModel>()
       .Name("grid")
       .Columns(cols =>
       {
           cols.Bound(pr => pr.Id).Hidden();
           cols.Bound(pr => pr.Name);
-          cols.Bound(pr => pr.ParentCategoryName).ClientTemplate("#= ParentCategoryName #").Title("Parent Category"); 
+          cols.Bound(pr => pr.Category).ClientTemplate(
+                "# if (Category) { #" +
+                    "#=Category.Name# " +
+                //"# } #" +
+                "# } else { #" +
+                "   No parent category" +
+                "# } #"
+              
+              ).Title("Parent Category"); 
           //cols.Bound(pr => pr.ManufacturerId).ClientTemplate("#= ManufacturerName #").Title("Manufacturer").ClientGroupHeaderTemplate("#= Manufacturer.Name #");
           //cols.Bound(pr => pr.CategoryId).ClientTemplate("#= CategoryName #").Title("Category");
           //cols.Bound(pr => pr.ProductTypeId).ClientTemplate("#= ProductTypeName #").Title("Product Type");
@@ -32,23 +40,23 @@
       .Filterable()
       .Editable(edit => edit.Mode(GridEditMode.InLine))
       .ToolBar(toolbar => toolbar.Create())
-      .Events(events =>
-      {
-          events.Save("onSaveProduct");
-      })
+          .Events(events =>
+          {
+              // events.Save("onSaveProduct");
+          })
       .DataSource(data => data
                               .Ajax()
                               .Model(m =>
                               {
-                                  m.Id(adv => adv.Id);
+                                  m.Id(x => x.Id);
                                   //m.Field(p => p.CreatedOn).Editable(false);
-                                  m.Field(p => p.ParentCategoryName);
+                                  m.Field(p => p.Category).DefaultValue(new CategoriesViewModel());
                                   //m.Field(p => p.ManufacturerId).DefaultValue((ViewData["DefaultManufacturers"] as ManufacturerViewModel).Id);
                                   //m.Field(p => p.ProductTypeId).DefaultValue((ViewData["DefaultProductTypes"] as FindYourMakeUp.Web.Areas.Administration.ViewModels.ProductTypeViewModel).Id);
                               })
                               .Read(read => read.Action("Read", ControllerName))
                               .Create(create => create.Action("Create", ControllerName))
-                              .Update(update => update.Action("Update", ControllerName))
+                                  .Update(update => update.Action("Update", ControllerName).Type(HttpVerbs.Post))
                               .Destroy(destroy => destroy.Action("Destroy", ControllerName))))
 
 @section scripts{

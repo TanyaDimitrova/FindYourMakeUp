@@ -15,7 +15,7 @@ namespace FindYourMakeUp.Data.Models
         public int Id { get; set; }
 
         [Required]
-        [MinLength(3)]
+        [StringLength(150, MinimumLength = 3)]
         public string Name { get; set; }
 
         public virtual ICollection<Category> Categories { get; set; }

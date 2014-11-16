@@ -39,5 +39,10 @@
 
             return this.Json(cats);
         }
+
+        public ActionResult Error()
+        {
+            return this.View();
+        }
     }
 }

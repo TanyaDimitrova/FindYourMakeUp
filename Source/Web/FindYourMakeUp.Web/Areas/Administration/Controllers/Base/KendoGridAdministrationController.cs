@@ -27,11 +27,11 @@
         [HttpPost]
         public ActionResult Read([DataSourceRequest]DataSourceRequest request)
         {
-            var ads =
+            var data =
                 this.GetData()
                     .ToDataSourceResult(request);
 
-            return this.Json(ads);
+            return this.Json(data);
         }
 
         [NonAction]
@@ -54,9 +54,10 @@
         {
             if (model != null && ModelState.IsValid)
             {
-                var dbModel = this.GetById<TModel>(id);
+                TModel dbModel = this.GetById<TModel>(id);
                 Mapper.Map<TViewModel, TModel>(model, dbModel);
                 this.ChangeEntityStateAndSave(dbModel, EntityState.Modified);
+
                 model.ModifiedOn = dbModel.ModifiedOn;
 
                 return dbModel;

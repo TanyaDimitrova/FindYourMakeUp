@@ -62,6 +62,10 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\FindYourMakeUp.Web\bin\System.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -75,6 +79,7 @@
     <Compile Include="Mapping\AutoMapperConfig.cs" />
     <Compile Include="Mapping\IMapFrom.cs" />
     <Compile Include="Mapping\IHaveCustomMappings.cs" />
+    <Compile Include="ModelBinders\JsonDateTimeModelBinder.cs" />
     <Compile Include="Ninject\NinjectWebCommon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

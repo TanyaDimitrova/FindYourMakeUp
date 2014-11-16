@@ -1,5 +1,14 @@
-﻿@(Html.Kendo().DropDownList()
-    .Name("CategoryId")
-    .DataValueField("Id")
-    .DataTextField("Name")
-    .BindTo((System.Collections.IEnumerable)ViewData["Categories"]))
+﻿@(Html.Kendo()
+      .DropDownList()
+              .Name("ParentCategoryId")
+      .DataValueField("Id")
+      .DataTextField("Name")
+      .OptionLabel(new { Name = "--Choose category--", Id = "" })
+      .DataSource(source =>
+      {
+          source.Read(read =>
+          {
+              read.Action("GetCascadeCategories", "Products");
+          });
+      })
+)

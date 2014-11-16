@@ -1,8 +1,8 @@
 ﻿@(Html.Kendo().DropDownList()
-    .Name("CategoryId")
+    .Name("Category")
     .DataValueField("Id")
     .DataTextField("Name")
     .DataSource(datasorce => datasorce.Read(source => source.Action("GetParents", "Categories")))
-    .
+    .OptionLabel("--Choose category or leave empty for parent--")
     
     )

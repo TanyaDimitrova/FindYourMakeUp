@@ -2,4 +2,17 @@
     .Name("ProductTypeId")
     .DataValueField("Id")
     .DataTextField("Name")
-            .BindTo((System.Collections.IEnumerable)ViewData["ProductTypes"]))
+      .OptionLabel(new { Name = "--Choose type--", Id = "" })
+    .DataSource(source =>
+              {
+                  source.Read(read =>
+                  {
+                      read.Action("GetCascadeProducts", "Products")
+                          .Data("filterTypes");
+                  })
+                  .ServerFiltering(true);
+              })
+              .Enable(false)
+              .AutoBind(false)
+                  .CascadeFrom("CategoryId")
+)

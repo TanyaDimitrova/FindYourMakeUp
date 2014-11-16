@@ -1,13 +1,21 @@
 ﻿@model ICollection<FindYourMakeUp.Data.Models.Product>
 <div class="container">
     <table class="table table-striped ">
+        <thead>
+            <tr class="row body-content">
+                <th class="col-md-4">Name</th>
+                <th class="col-md-2">Manufacturer</th>
+                <th class="col-md-1">Rating</th>
+                <th class="col-md-3"> Type / Category </th>
+            </tr>
+        </thead>
         @foreach (var product in Model)
         {
             <tr class="row body-content">
-                <td class="col-md-4">@product.Name</td>
-                <td class="col-md-2">@product.Manufacturer.Name</td>
-                <td class="col-md-1">@product.Rating</td>
-                <td class="col-md-3">
+                <td class="col-md-3"><a href="/Products/Details/@product.Id"> @product.Name </a></td>
+                <td class="col-md-3">@product.Manufacturer.Name</td>
+                <td class="col-md-2">@product.Rating</td>
+                <td class="col-md-4">
                     @product.ProductType.Name @product.Category.Name
                     @if (product.Category.ParentCategory != null)
                     {

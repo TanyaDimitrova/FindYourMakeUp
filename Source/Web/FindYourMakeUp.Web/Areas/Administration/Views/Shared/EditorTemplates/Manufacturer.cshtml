@@ -2,4 +2,5 @@
     .Name("ManufacturerId")
     .DataValueField("Id")
     .DataTextField("Name")
+          .OptionLabel(new { Name = "--Choose manufacturer--", Id = "" })
         .BindTo((System.Collections.IEnumerable)ViewData["Manufacturers"]))

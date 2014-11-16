@@ -7,6 +7,8 @@
 
     using FindYourMakeUp.Data.Models;
     using FindYourMakeUp.Data.UoW;
+    using System;
+    using System.Globalization;
 
     public abstract class BaseController : Controller
     {
@@ -32,5 +34,11 @@
         }
 
         protected ApplicationUser CurrentUser { get; private set; }
+        
+        protected override IAsyncResult BeginExecute(System.Web.Routing.RequestContext requestContext, AsyncCallback callback, object state)
+        {
+            System.Threading.Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+            return base.BeginExecute(requestContext, callback, state);
+        }
     }
 }

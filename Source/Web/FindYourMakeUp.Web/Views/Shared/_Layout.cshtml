@@ -26,16 +26,16 @@
 
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="dropdown">@Html.ActionLink("Home", "Index", "Home", routeValues: new { area = string.Empty }, htmlAttributes: null)</li>
-                    <li class="">@Html.ActionLink("Products", "Index", "Products")</li>
+                    <li class="dropdown">@Html.ActionLink("Home", "Index", "Home", new { area = string.Empty }, null)</li>
+                    <li class="">@Html.ActionLink("Products", "Index", "Products", new { area = string.Empty }, null)</li>
                     <li>
-                        @* TODO: administrators only   @if (this.User.IsInRole("Admin"))*@
+                        @* TODO: administrators only   @if (this.User.IsInRole(GlobalConstants.Admin))*@
                     <li>
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Administration<b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Manage Products", "Index", "Products", routeValues: new { area = "Administration" },  htmlAttributes: null)</li>
-                            <li>@Html.ActionLink("Manage Categories", "Index", "Categories", routeValues: new { area = "Administration" }, htmlAttributes: null)</li>
-                            <li>@Html.ActionLink("Manage Manufacturers", "Index", "Manufacturers", routeValues: new { area = "Administration" }, htmlAttributes: null)</li>
+                            <li>@Html.ActionLink("Manage Products", "Index", "Products", new { area = "Administration" }, null)</li>
+                            <li>@Html.ActionLink("Manage Categories", "Index", "Categories", new { area = "Administration" }, null)</li>
+                            <li>@Html.ActionLink("Manage Manufacturers", "Index", "Manufacturers", new { area = "Administration" }, null)</li>
                         </ul>
                     </li>
                 </ul>

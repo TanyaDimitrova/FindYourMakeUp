@@ -1,0 +1,40 @@
+﻿@using FindYourMakeUp.Web.Areas.Administration.ViewModels
+
+@{
+    ViewBag.Title = "Manufacturers administration";
+    const string ControllerName = "Manufacturers";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@Html.ValidationSummary()
+
+@(Html.Kendo()
+          .Grid<ManufacturerViewModel>()
+      .Name("grid")
+      .Columns(cols =>
+      {
+          cols.Bound(pr => pr.Id).Hidden();
+          cols.Bound(pr => pr.Name);
+          cols.Command(com => com.Edit()).Title("Edit");
+          cols.Command(com => com.Destroy()).Title("Delete");
+      })
+      .ColumnMenu()
+      .Pageable(page => page.Refresh(true))
+      .Resizable(c => c.Columns(true))
+      .Reorderable(reorder => reorder.Columns(true))
+      .Sortable()
+      .Groupable()
+      .Filterable()
+      .Editable(edit => edit.Mode(GridEditMode.InLine))
+      .ToolBar(toolbar => toolbar.Create())
+      .DataSource(data => data
+                              .Ajax()
+                              .Model(m =>
+                              {
+                                  m.Id(adv => adv.Id);
+                              })
+                              .Read(read => read.Action("Read", ControllerName))
+                              .Create(create => create.Action("Create", ControllerName))
+                              .Update(update => update.Action("Update", ControllerName))
+                              .Destroy(destroy => destroy.Action("Destroy", ControllerName))))

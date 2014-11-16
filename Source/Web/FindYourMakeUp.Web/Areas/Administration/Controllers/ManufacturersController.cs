@@ -41,13 +41,18 @@ namespace FindYourMakeUp.Web.Areas.Administration.Controllers
         }
 
         [HttpPost]
+        public ActionResult Create([DataSourceRequest]DataSourceRequest request, ViewModel model)
+        {
+            var dbModel = base.Create<Model>(model);
+            if (dbModel != null) model.Id = dbModel.Id;
+            return this.GridOperation(model, request);
+        }
+
+        [HttpPost]
         public ActionResult Update([DataSourceRequest]DataSourceRequest request, ViewModel model)
         {
             var dbModel = base.Update<Model, ViewModel>(model, model.Id);
-
-            //model.ManufacturerName = dbModel.Manufacturer.Name;
-            //model.CategoryName = dbModel.Category.Name;
-            //model.ProductTypeName = dbModel.ProductType.Name;
+            model.Name = dbModel.Name;
 
             return this.GridOperation(model, request);
         }
@@ -57,7 +62,7 @@ namespace FindYourMakeUp.Web.Areas.Administration.Controllers
         {
             if (model != null && ModelState.IsValid)
             {
-                this.Data.Products.Delete(model.Id);
+                this.Data.Manufacturers.Delete(model.Id);
                 this.Data.SaveChanges();
             }
 

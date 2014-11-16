@@ -3,7 +3,9 @@ namespace FindYourMakeUp.Data.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
+    using FindYourMakeUp.Common;
     using FindYourMakeUp.Data.Models;
+    using Microsoft.AspNet.Identity.EntityFramework;
 
     internal sealed class Configuration : DbMigrationsConfiguration<FindYourMakeUpDbContext>
     {
@@ -16,6 +18,8 @@ namespace FindYourMakeUp.Data.Migrations
 
         protected override void Seed(FindYourMakeUpDbContext context)
         {
+            this.SeedRoles(context);
+
             if (!context.Categories.Any())
             {
                 this.SeedCategories(context);
@@ -35,6 +39,12 @@ namespace FindYourMakeUp.Data.Migrations
             {
                 this.SeedProducts(context);
             }
+        }
+
+        private void SeedRoles(FindYourMakeUpDbContext context)
+        {
+            context.Roles.AddOrUpdate(x => x.Name, new IdentityRole(GlobalConstants.AdminRole));
+            context.SaveChanges();
         }
 
         private void SeedProducts(FindYourMakeUpDbContext context)

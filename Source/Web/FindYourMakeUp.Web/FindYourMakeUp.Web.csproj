@@ -236,7 +236,9 @@
     <Content Include="Areas\Administration\Views\Shared\EditorTemplates\ProductType.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\EditorTemplates\UploadFileEditor.cshtml" />
     <Content Include="Areas\Administration\Views\Categories\Index.cshtml" />
-    <Content Include="Areas\Administration\Views\Shared\EditorTemplates\Category2.cshtml" />
+    <Content Include="Areas\Administration\Views\Shared\EditorTemplates\ParentCategories.cshtml" />
+    <Content Include="Areas\Administration\Views\Manufacturers\Index.cshtml" />
+    <Content Include="Areas\Administration\Views\Shared\EditorTemplates\CascadeSubCategory.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -289,10 +291,22 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Shared\_ProductsListView.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Currency.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Date.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Email.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\EmailAddress.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\GridForeignKey.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Integer.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Number.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Password.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\String.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Time.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Url.cshtml" />
+    <Content Include="Views\Products\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Administration\Views\Manufacturers\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -313,6 +327,10 @@
     <ProjectReference Include="..\..\Data\FindYourMakeUp.Data\FindYourMakeUp.Data.csproj">
       <Project>{8e25d1ca-fec7-4b70-91b2-0b85a563e355}</Project>
       <Name>FindYourMakeUp.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\FindYourMakeUp.Common\FindYourMakeUp.Common.csproj">
+      <Project>{51a8e302-25be-489b-947f-33734012bb09}</Project>
+      <Name>FindYourMakeUp.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\FindYourMakeUp.Web.Infrastructure\FindYourMakeUp.Web.Infrastructure.csproj">
       <Project>{b5af7c27-e9fd-45c8-bb7e-161936c1c183}</Project>

@@ -17,8 +17,9 @@
           cols.Bound(pr => pr.Id).Hidden();
           cols.Bound(pr => pr.Name);
           cols.Bound(pr => pr.Description);
-          cols.Bound(pr => pr.ManufacturerId).ClientTemplate("#= ManufacturerName #").Title("Manufacturer").ClientGroupHeaderTemplate("#= Manufacturer.Name #");
-          cols.Bound(pr => pr.CategoryId).ClientTemplate("#= CategoryName #").Title("Category");
+          cols.Bound(pr => pr.ManufacturerId).ClientTemplate("#= ManufacturerName #").Title("Manufacturer");
+          cols.Bound(pr => pr.ParentCategoryId).ClientTemplate("#= ParentCategoryName #").Title("Category");
+          cols.Bound(pr => pr.CategoryId).ClientTemplate("#= CategoryName #").Title("SubCategory");
           cols.Bound(pr => pr.ProductTypeId).ClientTemplate("#= ProductTypeName #").Title("Product Type");
           cols.Command(com => com.Edit()).Title("Edit");
           cols.Command(com => com.Destroy()).Title("Delete");
@@ -34,6 +35,7 @@
       .ToolBar(toolbar => toolbar.Create())
       .Events(events =>
       {
+          events.Change("onSaveProduct");
           events.Save("onSaveProduct");
       })
       .DataSource(data => data
@@ -42,9 +44,9 @@
                               {
                                   m.Id(adv => adv.Id);
                                   m.Field(p => p.CreatedOn).Editable(false);
-                                  m.Field(p => p.CategoryId).DefaultValue((ViewData["DefaultCategories"] as CategoriesViewModel).Id);
-                                  m.Field(p => p.ManufacturerId).DefaultValue((ViewData["DefaultManufacturers"] as ManufacturerViewModel).Id);
-                                  m.Field(p => p.ProductTypeId).DefaultValue((ViewData["DefaultProductTypes"] as ProductTypeViewModel).Id);
+                                  //m.Field(p => p.CategoryId).DefaultValue((ViewData["DefaultCategories"] as CategoriesViewModel).Id);
+                                  //m.Field(p => p.ManufacturerId).DefaultValue((ViewData["DefaultManufacturers"] as ManufacturerViewModel).Id);
+                                  //m.Field(p => p.ProductTypeId).DefaultValue((ViewData["DefaultProductTypes"] as ProductTypeViewModel).Id);
                               })
                               .Read(read => read.Action("Read", ControllerName))
                               .Create(create => create.Action("Create", ControllerName))
@@ -57,4 +59,19 @@
             $("#grid").data("kendoGrid").dataSource.read();
         }
     </script>
+<script>
+    function filterSubCategories() {
+        return {
+            categoryId: $("#ParentCategoryId").val()
+        };
+    }
+
+    function filterTypes() {
+        return {
+            categoryId: $("#CategoryId").val()
+        };
+    }
+</script>
+
 }
+
