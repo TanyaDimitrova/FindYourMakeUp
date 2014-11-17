@@ -55,7 +55,7 @@
                 {
                     var dbReview = Mapper.Map<Review>(review);
                     dbReview.UserId = this.CurrentUser.Id;
-
+                    dbReview.Product = this.Data.Products.GetById(review.ProductId);
                     this.Data.Reviews.Add(dbReview);
                     this.Data.SaveChanges();
 
