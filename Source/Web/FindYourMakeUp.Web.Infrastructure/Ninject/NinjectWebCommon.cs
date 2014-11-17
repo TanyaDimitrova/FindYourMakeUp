@@ -7,17 +7,17 @@ namespace FindYourMakeUp.Web.Infrastructure
     using System.Data.Entity;
     using System.Web;
 
+    using FindYourMakeUp.Data;
+    using FindYourMakeUp.Data.UoW;
+
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 
     using Ninject;
     using Ninject.Web.Common;
 
-    using FindYourMakeUp.Data;
-    using FindYourMakeUp.Data.UoW;
-
     public static class NinjectWebCommon
     {
-        private static readonly Bootstrapper bootstrapper = new Bootstrapper();
+        private static readonly Bootstrapper Bootstrapper = new Bootstrapper();
 
         /// <summary>
         /// Starts the application
@@ -26,7 +26,7 @@ namespace FindYourMakeUp.Web.Infrastructure
         {
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
-            bootstrapper.Initialize(CreateKernel);
+            Bootstrapper.Initialize(CreateKernel);
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace FindYourMakeUp.Web.Infrastructure
         /// </summary>
         public static void Stop()
         {
-            bootstrapper.ShutDown();
+            Bootstrapper.ShutDown();
         }
 
         /// <summary>

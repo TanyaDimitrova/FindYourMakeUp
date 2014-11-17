@@ -3,7 +3,7 @@
     using System.ComponentModel.DataAnnotations;
 
     using AutoMapper;
-    
+
     using FindYourMakeUp.Data.Models;
     using FindYourMakeUp.Web.Areas.Administration.ViewModels.Base;
     using FindYourMakeUp.Web.Infrastructure.Mapping;
@@ -20,27 +20,26 @@
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
-        [Required(ErrorMessage="Subcategory is required")]
-        [Range(1, int.MaxValue,ErrorMessage="Choose category")]
+        [Required(ErrorMessage = "Subcategory is required")]
+        [Range(1, int.MaxValue, ErrorMessage = "Choose category")]
         [UIHint("CascadeSubCategory")]
         public int CategoryId { get; set; }
 
         public string CategoryName { get; set; }
 
-  
         [UIHint("Category")]
         public int? ParentCategoryId { get; set; }
 
         public string ParentCategoryName { get; set; }
 
         [Required]
-        [Range(1,int.MaxValue)]
+        [Range(1, int.MaxValue)]
         [UIHint("Manufacturer")]
         public int ManufacturerId { get; set; }
 
         public string ManufacturerName { get; set; }
 
-        [Required(ErrorMessage="Product type is required")]
+        [Required(ErrorMessage = "Product type is required")]
         [Range(1, int.MaxValue, ErrorMessage = "Product type is required")]
         [UIHint("ProductType")]
         public int ProductTypeId { get; set; }
@@ -49,23 +48,20 @@
 
         public void CreateMappings(IConfiguration configuration)
         {
-            //Mapper.CreateMap<ProductsViewModel, CategoriesViewModel>()
-            //   .ForMember(c => c.Id, opt => opt.MapFrom(c => c.ParentCategoryId));
+            Mapper.CreateMap<Product, ProductsViewModel>()
+                  .ForMember(c => c.ParentCategoryId, opt => opt.MapFrom(c => c.Category.ParentCategoryId));
 
             Mapper.CreateMap<Product, ProductsViewModel>()
-              .ForMember(c => c.ParentCategoryId, opt => opt.MapFrom(c => c.Category.ParentCategoryId));
-
-            Mapper.CreateMap<Product, ProductsViewModel>()
-                .ForMember(c => c.ParentCategoryName, opt => opt.MapFrom(c => c.Category.ParentCategory!=null? c.Category.ParentCategory.Name:"No category"));
+                  .ForMember(c => c.ParentCategoryName, opt => opt.MapFrom(c => c.Category.ParentCategory != null ? c.Category.ParentCategory.Name : "No category"));
 
             Mapper.CreateMap<Product, ProductsViewModel>()
                   .ForMember(c => c.CategoryName, opt => opt.MapFrom(c => c.Category.Name));
-            
+
             Mapper.CreateMap<ProductsViewModel, ProductTypeViewModel>()
-                 .ForMember(c => c.Name, opt => opt.MapFrom(c => c.ProductTypeName));
+                  .ForMember(c => c.Name, opt => opt.MapFrom(c => c.ProductTypeName));
 
             Mapper.CreateMap<ProductsViewModel, ManufacturerViewModel>()
-                .ForMember(c => c.Name, opt => opt.MapFrom(c => c.ManufacturerName));
+                  .ForMember(c => c.Name, opt => opt.MapFrom(c => c.ManufacturerName));
         }
     }
 }

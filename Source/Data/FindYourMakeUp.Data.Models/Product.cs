@@ -1,10 +1,10 @@
 ﻿namespace FindYourMakeUp.Data.Models
 {
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
 
     using FindYourMakeUp.Data.Contracts.Models;
-    using System.ComponentModel;
 
     public class Product : DeletableEntity
     {
@@ -46,7 +46,7 @@
         {
             get
             {
-             var   allreviews = this.Reviews;
+             var allreviews = this.Reviews;
                 if (allreviews.Count > 0)
                 {
                     int allRates = 0;
@@ -57,6 +57,7 @@
 
                     return allRates / allreviews.Count;
                 }
+
                 return 0;
             }
         }

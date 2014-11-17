@@ -1,21 +1,19 @@
-﻿using AutoMapper;
-using FindYourMakeUp.Data.UoW;
-using FindYourMakeUp.Web.IntpuViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using AutoMapper.QueryableExtensions;
-using FindYourMakeUp.Web.ViewModels;
-using FindYourMakeUp.Data.Models;
-
-namespace FindYourMakeUp.Web.Controllers
+﻿namespace FindYourMakeUp.Web.Controllers
 {
+    using System.Linq;
+    using System.Web.Mvc;
+
+    using AutoMapper;
+    using AutoMapper.QueryableExtensions;
+    
+    using FindYourMakeUp.Data.Models;
+    using FindYourMakeUp.Data.UoW;
+    using FindYourMakeUp.Web.IntpuViewModels;
+    using FindYourMakeUp.Web.ViewModels;
+
     public class ReviewsController : BaseController
     {
-        public ReviewsController(IFindYourMakeUpData data)
-            : base(data)
+        public ReviewsController(IFindYourMakeUpData data) : base(data)
         {
         }
 
@@ -24,15 +22,22 @@ namespace FindYourMakeUp.Web.Controllers
         public ActionResult Create()
         {
             int id = int.Parse(Request.FilePath.Split(new char[] { '/' }).Last());
+
+            if (this.Data.Reviews.All().Any(r => r.ProductId == id && r.UserId == this.CurrentUser.Id))
+            {
+                ModelState.AddModelError("AlreadyExisting", "You have already created review for this product ");
+            }
+
             var product = this.Data
-            .Products
+                              .Products
                               .All()
                               .Where(p => p.Id == id)
                               .Project()
                               .To<ProductListViewModel>()
                               .First();
+
             var inputModel = new ReviewInputModel { ProductId = id, Product = product };
-            return PartialView("_Create", inputModel);
+            return this.PartialView("_Create", inputModel);
         }
 
         [Authorize]
@@ -42,17 +47,23 @@ namespace FindYourMakeUp.Web.Controllers
         {
             if (review != null && ModelState.IsValid)
             {
-                var dbReview = Mapper.Map<Review>(review);
-                dbReview.UserId = this.CurrentUser.Id;
-                this.Data.Reviews.Add(dbReview);
-                // TODO: One user should be able to create only one review per product
-                this.Data.SaveChanges();
-                var r = this.Data.Products.GetById(dbReview.ProductId).Rating;
-                // TODO: Test this message
-                TempData["SuccessMessage"] = "Your review was successfully created!";
-                return Json(new { url = Url.Action("Products", "Details", new { id = dbReview.ProductId }) });
+                if (this.Data.Reviews.All().Any(r => r.ProductId == review.ProductId && r.UserId == this.CurrentUser.Id))
+                {
+                    ModelState.AddModelError("AlreadyExisting", "You have created review for this product already");
+                }
+                else
+                {
+                    var dbReview = Mapper.Map<Review>(review);
+                    dbReview.UserId = this.CurrentUser.Id;
+
+                    this.Data.Reviews.Add(dbReview);
+                    this.Data.SaveChanges();
+
+                    return this.PartialView("_ListReviews", dbReview.Product.Reviews);
+                }
             }
-            return PartialView("_Create", review);
+
+            return this.PartialView("_Create", review);
         }
     }
 }

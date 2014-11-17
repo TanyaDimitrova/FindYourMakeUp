@@ -1,19 +1,19 @@
 ﻿@(Html.Kendo()
       .DropDownList()
-          .Name("CategoryId")
+      .Name("CategoryId")
       .DataValueField("Id")
       .DataTextField("Name")
       .OptionLabel(new { Name = "--Choose subcategory--", Id = "" })
       .DataSource(source =>
-              {
-                  source.Read(read =>
-                  {
-                      read.Action("GetCascadeSubCategories", "Products")
-                          .Data("filterSubCategories");
-                  })
-                  .ServerFiltering(true);
-              })
-              .Enable(false)
-              .AutoBind(false)
-              .CascadeFrom("ParentCategoryId")
-)            
+      {
+          source.Read(read =>
+          {
+              read.Action("GetCascadeSubCategories", "Products")
+                  .Data("filterSubCategories");
+          })
+                .ServerFiltering(true);
+      })
+      .Enable(false)
+      .AutoBind(false)
+      .CascadeFrom("ParentCategoryId")
+) 

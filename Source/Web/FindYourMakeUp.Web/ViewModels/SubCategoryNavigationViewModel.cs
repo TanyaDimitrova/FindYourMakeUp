@@ -4,7 +4,6 @@
 
     using FindYourMakeUp.Data.Models;
     using FindYourMakeUp.Web.Infrastructure.Mapping;
-    using System.Collections;
 
     public class SubCategoryNavigationViewModel : IMapFrom<Category>
     {

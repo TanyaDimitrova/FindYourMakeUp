@@ -1,59 +1,42 @@
-﻿using FindYourMakeUp.Web.Areas.Administration.Controllers.Base;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using AutoMapper.QueryableExtensions;
-using FindYourMakeUp.Web.Areas.Administration.ViewModels;
-using FindYourMakeUp.Data.UoW;
-
-using Model = FindYourMakeUp.Data.Models.Category;
-using ViewModel = FindYourMakeUp.Web.Areas.Administration.ViewModels.CategoriesParentsViewModel;
-using Kendo.Mvc.UI;
-
-namespace FindYourMakeUp.Web.Areas.Administration.Controllers
+﻿namespace FindYourMakeUp.Web.Areas.Administration.Controllers
 {
+    using System.Collections;
+    using System.Linq;
+    using System.Web.Mvc;
+
+    using AutoMapper.QueryableExtensions;
+
+    using FindYourMakeUp.Data.UoW;
+    using FindYourMakeUp.Web.Areas.Administration.Controllers.Base;
+    using FindYourMakeUp.Web.Areas.Administration.ViewModels;
+
+    using Kendo.Mvc.UI;
+
+    using Model = FindYourMakeUp.Data.Models.Category;
+    using ViewModel = FindYourMakeUp.Web.Areas.Administration.ViewModels.CategoriesParentsViewModel;
+
     public class CategoriesController : KendoGridAdministrationController
     {
         public CategoriesController(IFindYourMakeUpData data)
             : base(data)
         {
-
         }
-        // GET: Administration/Categories
+
         public ActionResult Index()
         {
             this.PopulateCategories();
-            return View();
-        }
-
-        protected override IEnumerable GetData()
-        {
-            this.Data.Context.Configuration.ProxyCreationEnabled = false;
-            var data = this.Data.Categories.All().Project().To<CategoriesParentsViewModel>();
-            return data;
-        }
-
-        private void PopulateCategories()
-        {
-            var categories = this.Data.Categories.All().Where(c => c.ParentCategoryId == null).OrderBy(c => c.Name).Project().To<CategoriesViewModel>();
-
-            this.ViewData["Categories"] = categories;
-            this.ViewData["DefaultCategories"] = categories.FirstOrDefault();
-        }
-
-        protected override T GetById<T>(object id)
-        {
-            return this.Data.Categories.GetById(id) as T;
+            return this.View();
         }
 
         [HttpPost]
         public ActionResult Create([DataSourceRequest]DataSourceRequest request, ViewModel model)
         {
             var dbModel = base.Create<Model>(model);
-            if (dbModel != null) model.Id = dbModel.Id;
+            if (dbModel != null)
+            {
+                model.Id = dbModel.Id;
+            }
+
             dbModel.ParentCategoryId = model.Category.Id;
             return this.GridOperation(model, request);
         }
@@ -67,13 +50,18 @@ namespace FindYourMakeUp.Web.Areas.Administration.Controllers
 
             return this.GridOperation(model, request);
         }
+
         public ActionResult GetParents()
         {
             this.Data.Context.Configuration.ProxyCreationEnabled = false;
-            var data = this.Data.Categories.All().Where(c => c.ParentCategoryId == null)//.Select(c => new { Id = c.Id, Name = c.Name });
-                .Project().To<CategoriesParentsViewModel>();
+            var data = this.Data
+                .Categories
+                .All()
+                .Where(c => c.ParentCategoryId == null)
+                .Project()
+                .To<CategoriesParentsViewModel>();
 
-            return Json(data, JsonRequestBehavior.AllowGet);
+            return this.Json(data, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -86,6 +74,37 @@ namespace FindYourMakeUp.Web.Areas.Administration.Controllers
             }
 
             return this.GridOperation(model, request);
+        }
+
+        protected override IEnumerable GetData()
+        {
+            this.Data.Context.Configuration.ProxyCreationEnabled = false;
+            var data = this.Data
+                .Categories
+                .All()
+                .Project()
+                .To<CategoriesParentsViewModel>();
+
+            return data;
+        }
+
+        protected override T GetById<T>(object id)
+        {
+            return this.Data.Categories.GetById(id) as T;
+        }
+
+        private void PopulateCategories()
+        {
+            var categories = this.Data
+                .Categories
+                .All()
+                .Where(c => c.ParentCategoryId == null)
+                .OrderBy(c => c.Name)
+                .Project()
+                .To<CategoriesViewModel>();
+
+            this.ViewData["Categories"] = categories;
+            this.ViewData["DefaultCategories"] = categories.FirstOrDefault();
         }
     }
 }

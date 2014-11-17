@@ -1,13 +1,10 @@
-﻿using FindYourMakeUp.Data.Models;
-using FindYourMakeUp.Web.Infrastructure.Mapping;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-
-namespace FindYourMakeUp.Web.ViewModels
+﻿namespace FindYourMakeUp.Web.ViewModels
 {
+    using System.ComponentModel.DataAnnotations;
+
+    using FindYourMakeUp.Data.Models;
+    using FindYourMakeUp.Web.Infrastructure.Mapping;
+
     public class ProductListViewModel : IMapFrom<Product>
     {
         public int Id { get; set; }

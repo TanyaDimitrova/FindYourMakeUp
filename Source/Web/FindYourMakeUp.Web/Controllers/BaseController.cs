@@ -1,14 +1,14 @@
 ﻿namespace FindYourMakeUp.Web.Controllers
 {
+    using System;
+    using System.Globalization;
     using System.Threading;
     using System.Web.Mvc;
 
-    using Microsoft.AspNet.Identity;
-
     using FindYourMakeUp.Data.Models;
     using FindYourMakeUp.Data.UoW;
-    using System;
-    using System.Globalization;
+
+    using Microsoft.AspNet.Identity;
 
     public abstract class BaseController : Controller
     {
@@ -34,7 +34,7 @@
         }
 
         protected ApplicationUser CurrentUser { get; private set; }
-        
+
         protected override IAsyncResult BeginExecute(System.Web.Routing.RequestContext requestContext, AsyncCallback callback, object state)
         {
             System.Threading.Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;

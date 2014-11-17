@@ -1,7 +1,6 @@
 ﻿namespace FindYourMakeUp.Web.Areas.Administration.ViewModels
 {
     using System.ComponentModel.DataAnnotations;
-
     using FindYourMakeUp.Data.Models;
     using FindYourMakeUp.Web.Infrastructure.Mapping;
 

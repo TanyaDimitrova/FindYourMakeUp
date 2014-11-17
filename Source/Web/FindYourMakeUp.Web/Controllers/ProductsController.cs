@@ -13,15 +13,14 @@
         {
         }
 
-        // GET: Products
         public ActionResult Index()
         {
-            var categories = this.Data.Categories.All().Where(c => c.ParentCategory == null) // Parents
+            var categories = this.Data.Categories.All().Where(c => c.ParentCategory == null)
                                  .Select(c => new CategoryNavigationViewModel()
                                         {
                                             Id = c.Id,
                                             Name = c.Name,
-                                            SubCategories = c.Children.Select(t => new SubCategoryNavigationViewModel()// subcategorires
+                                            SubCategories = c.Children.Select(t => new SubCategoryNavigationViewModel()
                                             {
                                                 Id = t.Id,
                                                 Name = t.Name,
@@ -33,9 +32,8 @@
                                                 })
                                             })
                                         }).ToList();
-            return View(categories);
+            return this.View(categories);
         }
-
 
         // GET Products/ListByType/(typeId)
         public ActionResult ListByType(int id, int categoryId)
@@ -44,13 +42,13 @@
                 .All()
                 .Where(p => p.CategoryId == categoryId && p.ProductTypeId == id)
                 .ToList();
-            return PartialView("_ProductsListView", productsList);
+            return this.PartialView("_ProductsListView", productsList);
         }
 
-         public ActionResult Details(int id)
-         {
+        public ActionResult Details(int id)
+        {
             var product = this.Data.Products.All().Where(p => p.Id == id).FirstOrDefault();
-            return View(product);
-         }
+            return this.View(product);
+        }
     }
 }

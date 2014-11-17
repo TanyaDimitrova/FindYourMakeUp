@@ -1,8 +1,9 @@
 ﻿namespace FindYourMakeUp.Data.Models
 {
-    using FindYourMakeUp.Data.Contracts.Models;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+
+    using FindYourMakeUp.Data.Contracts.Models;
 
     public class Manufacturer : DeletableEntity
     {

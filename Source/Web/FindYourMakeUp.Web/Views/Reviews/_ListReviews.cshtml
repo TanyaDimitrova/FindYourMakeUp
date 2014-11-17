@@ -1,0 +1,24 @@
+﻿@model ICollection<FindYourMakeUp.Data.Models.Review>
+<div id="reviews">
+    <div class="row">
+        @foreach (var review in Model)
+        {
+            <div class="row">
+                <div class="col-md-8">@review.Content</div>
+                <div class="col-md-4">
+
+                    <span class="alert @((review.Rate > 4.5 ? "alert-success" : (review.Rate < 0) ? "alert-danger" : "alert-info"))">
+                        Rate: @review.Rate
+                    </span>
+                </div>
+            </div>
+            <div>
+                <blockquote>
+                    <small>posted on @review.CreatedOn - by @review.User.UserName</small>
+                </blockquote>
+            </div>
+            <div class="divider" style="height:30px;"><hr /></div>
+        }
+    </div>
+
+</div>

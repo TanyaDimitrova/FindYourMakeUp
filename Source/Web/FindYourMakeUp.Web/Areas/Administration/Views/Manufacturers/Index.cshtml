@@ -7,10 +7,8 @@
 
 <h2>@ViewBag.Title</h2>
 
-@Html.ValidationSummary()
-
 @(Html.Kendo()
-          .Grid<ManufacturerViewModel>()
+      .Grid<ManufacturerViewModel>()
       .Name("grid")
       .Columns(cols =>
       {

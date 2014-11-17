@@ -1,17 +1,16 @@
 ﻿namespace FindYourMakeUp.Web.Areas.Administration.Controllers
 {
-    using System;
     using System.Collections;
-    using System.Globalization;
     using System.Linq;
     using System.Web.Mvc;
 
     using AutoMapper.QueryableExtensions;
-    using Kendo.Mvc.UI;
 
     using FindYourMakeUp.Data.UoW;
     using FindYourMakeUp.Web.Areas.Administration.Controllers.Base;
     using FindYourMakeUp.Web.Areas.Administration.ViewModels;
+
+    using Kendo.Mvc.UI;
 
     using Model = FindYourMakeUp.Data.Models.Product;
     using ViewModel = FindYourMakeUp.Web.Areas.Administration.ViewModels.ProductsViewModel;
@@ -31,22 +30,15 @@
             return this.View();
         }
 
-        protected override IEnumerable GetData()
-        {
-            this.Data.Context.Configuration.ProxyCreationEnabled = false;
-            return this.Data.Products.All().Project().To<ProductsViewModel>();
-        }
-
-        protected override T GetById<T>(object id)
-        {
-            return this.Data.Products.GetById(id) as T;
-        }
-
         [HttpPost]
         public ActionResult Create([DataSourceRequest]DataSourceRequest request, ViewModel model)
         {
             var dbModel = base.Create<Model>(model);
-            if (dbModel != null) model.Id = dbModel.Id;
+            if (dbModel != null)
+            {
+                model.Id = dbModel.Id;
+            }
+
             return this.GridOperation(model, request);
         }
 
@@ -82,7 +74,7 @@
                 .Where(c => c.ParentCategoryId == null)
                 .Select(c => new { Id = c.Id, Name = c.Name });
 
-            return Json(data, JsonRequestBehavior.AllowGet);
+            return this.Json(data, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetCascadeSubCategories(int? categoryId)
@@ -94,7 +86,7 @@
                 subCategories = subCategories.Where(p => p.ParentCategoryId == categoryId);
             }
 
-            return Json(subCategories.Select(p => new { Id = p.Id, Name = p.Name }), JsonRequestBehavior.AllowGet);
+            return this.Json(subCategories.Select(p => new { Id = p.Id, Name = p.Name }), JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetCascadeProducts(int? categoryId)
@@ -106,9 +98,19 @@
                 productTypes = productTypes.Where(p => p.Categories.Any(c => c.Id == categoryId));
             }
 
-            return Json(productTypes.Select(p => new { Id = p.Id, Name = p.Name }), JsonRequestBehavior.AllowGet);
+            return this.Json(productTypes.Select(p => new { Id = p.Id, Name = p.Name }), JsonRequestBehavior.AllowGet);
         }
 
+        protected override IEnumerable GetData()
+        {
+            this.Data.Context.Configuration.ProxyCreationEnabled = false;
+            return this.Data.Products.All().Project().To<ProductsViewModel>();
+        }
+
+        protected override T GetById<T>(object id)
+        {
+            return this.Data.Products.GetById(id) as T;
+        }
 
         private void PopulateCategories()
         {

@@ -1,18 +1,19 @@
-﻿@(Html.Kendo().DropDownList()
-    .Name("ProductTypeId")
-    .DataValueField("Id")
-    .DataTextField("Name")
+﻿@(Html.Kendo()
+      .DropDownList()
+      .Name("ProductTypeId")
+      .DataValueField("Id")
+      .DataTextField("Name")
       .OptionLabel(new { Name = "--Choose type--", Id = "" })
-    .DataSource(source =>
-              {
-                  source.Read(read =>
-                  {
-                      read.Action("GetCascadeProducts", "Products")
-                          .Data("filterTypes");
-                  })
-                  .ServerFiltering(true);
-              })
-              .Enable(false)
-              .AutoBind(false)
-                  .CascadeFrom("CategoryId")
+      .DataSource(source =>
+      {
+          source.Read(read =>
+          {
+              read.Action("GetCascadeProducts", "Products")
+                  .Data("filterTypes");
+          })
+                .ServerFiltering(true);
+      })
+      .Enable(false)
+      .AutoBind(false)
+      .CascadeFrom("CategoryId")
 )

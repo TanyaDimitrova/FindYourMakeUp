@@ -4,7 +4,7 @@
     <div class="panel-heading">Create review</div>
     <div class="panel-body">
         @using (Ajax.BeginForm("Create", "Reviews", null
-            , new AjaxOptions { OnSuccess = "onSuccess", HttpMethod = "POST", UpdateTargetId = "create-panel", InsertionMode = InsertionMode.ReplaceWith }, null))
+            , new AjaxOptions { OnSuccess = "onSuccess", HttpMethod = "POST", UpdateTargetId = "create-panel", InsertionMode = InsertionMode.ReplaceWith }))
         {
             @Html.ValidationSummary()
             @Html.AntiForgeryToken()

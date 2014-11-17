@@ -6,17 +6,21 @@
     using System.Web;
     using System.Web.Mvc;
 
+    using FindYourMakeUp.Data.Models;
+    using FindYourMakeUp.Web.ViewModels;
+
+    using FindYourMakeUp.Web.ViewModels.Manage;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin.Security;
 
-    using FindYourMakeUp.Data.Models;
-    using FindYourMakeUp.Web.ViewModels;
-
     [Authorize]
     public class ManageController : Controller
     {
-        private ApplicationUserManager _userManager;
+        // Used for XSRF protection when adding external logins
+        private const string XsrfKey = "XsrfId";
+
+        private ApplicationUserManager userManager;
 
         public ManageController()
         {
@@ -27,16 +31,35 @@
             this.UserManager = userManager;
         }
 
+        public enum ManageMessageId
+        {
+            AddPhoneSuccess,
+            ChangePasswordSuccess,
+            SetTwoFactorSuccess,
+            SetPasswordSuccess,
+            RemoveLoginSuccess,
+            RemovePhoneSuccess,
+            Error
+        }
+
         public ApplicationUserManager UserManager
         {
             get
             {
-                return this._userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                return this.userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
 
             private set
             {
-                this._userManager = value;
+                this.userManager = value;
+            }
+        }
+
+        private IAuthenticationManager AuthenticationManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().Authentication;
             }
         }
 
@@ -321,16 +344,6 @@
         }
 
         #region Helpers
-        // Used for XSRF protection when adding external logins
-        private const string XsrfKey = "XsrfId";
-
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
-        }
 
         private async Task SignInAsync(ApplicationUser user, bool isPersistent)
         {
@@ -366,17 +379,6 @@
             }
 
             return false;
-        }
-
-        public enum ManageMessageId
-        {
-            AddPhoneSuccess,
-            ChangePasswordSuccess,
-            SetTwoFactorSuccess,
-            SetPasswordSuccess,
-            RemoveLoginSuccess,
-            RemovePhoneSuccess,
-            Error
         }
 
         #endregion

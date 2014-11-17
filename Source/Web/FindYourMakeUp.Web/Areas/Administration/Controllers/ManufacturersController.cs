@@ -1,50 +1,40 @@
-﻿using FindYourMakeUp.Data.UoW;
-using FindYourMakeUp.Web.Areas.Administration.Controllers.Base;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using AutoMapper.QueryableExtensions;
-using FindYourMakeUp.Web.Areas.Administration.ViewModels;
-using Kendo.Mvc.UI;
-
-using Model = FindYourMakeUp.Data.Models.Manufacturer;
-using ViewModel = FindYourMakeUp.Web.Areas.Administration.ViewModels.ManufacturerViewModel;
-
-namespace FindYourMakeUp.Web.Areas.Administration.Controllers
+﻿namespace FindYourMakeUp.Web.Areas.Administration.Controllers
 {
+    using System.Collections;
+    using System.Web.Mvc;
+
+    using AutoMapper.QueryableExtensions;
+
+    using FindYourMakeUp.Data.UoW;
+    using FindYourMakeUp.Web.Areas.Administration.Controllers.Base;
+    using FindYourMakeUp.Web.Areas.Administration.ViewModels;
+
+    using Kendo.Mvc.UI;
+
+    using Model = FindYourMakeUp.Data.Models.Manufacturer;
+    using ViewModel = FindYourMakeUp.Web.Areas.Administration.ViewModels.ManufacturerViewModel;
+
     public class ManufacturersController : KendoGridAdministrationController
     {
         public ManufacturersController(IFindYourMakeUpData data)
             : base(data)
         {
-
         }
 
-        // GET: Administration/Manufacturers
         public ActionResult Index()
         {
-            return View();
-        }
-
-        protected override IEnumerable GetData()
-        {
-            this.Data.Context.Configuration.ProxyCreationEnabled = false;
-            return this.Data.Manufacturers.All().Project().To<ManufacturerViewModel>();
-        }
-
-        protected override T GetById<T>(object id)
-        {
-            return this.Data.Manufacturers.GetById(id) as T;
+            return this.View();
         }
 
         [HttpPost]
         public ActionResult Create([DataSourceRequest]DataSourceRequest request, ViewModel model)
         {
             var dbModel = base.Create<Model>(model);
-            if (dbModel != null) model.Id = dbModel.Id;
+            if (dbModel != null)
+            {
+                model.Id = dbModel.Id;
+            }
+
             return this.GridOperation(model, request);
         }
 
@@ -67,6 +57,17 @@ namespace FindYourMakeUp.Web.Areas.Administration.Controllers
             }
 
             return this.GridOperation(model, request);
+        }
+
+        protected override T GetById<T>(object id)
+        {
+            return this.Data.Manufacturers.GetById(id) as T;
+        }
+
+        protected override IEnumerable GetData()
+        {
+            this.Data.Context.Configuration.ProxyCreationEnabled = false;
+            return this.Data.Manufacturers.All().Project().To<ManufacturerViewModel>();
         }
     }
 }

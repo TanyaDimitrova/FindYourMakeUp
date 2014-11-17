@@ -6,12 +6,12 @@
 
     using AutoMapper;
 
-    using Kendo.Mvc.Extensions;
-    using Kendo.Mvc.UI;
-
     using FindYourMakeUp.Data.Contracts.Models;
     using FindYourMakeUp.Data.UoW;
     using FindYourMakeUp.Web.Areas.Administration.ViewModels.Base;
+
+    using Kendo.Mvc.Extensions;
+    using Kendo.Mvc.UI;
 
     public abstract class KendoGridAdministrationController : AdministrationController
     {
@@ -19,10 +19,6 @@
             : base(data)
         {
         }
-
-        protected abstract IEnumerable GetData();
-
-        protected abstract T GetById<T>(object id) where T : class;
 
         [HttpPost]
         public ActionResult Read([DataSourceRequest]DataSourceRequest request)
@@ -34,6 +30,10 @@
             return this.Json(data);
         }
 
+        protected abstract IEnumerable GetData();
+
+        protected abstract T GetById<T>(object id) where T : class;
+
         [NonAction]
         protected virtual T Create<T>(object model) where T : class
         {
@@ -43,8 +43,9 @@
                 int result = this.ChangeEntityStateAndSave(dbModel, EntityState.Added);
                 if (result == 1)
                 {
-                    TempData["SuccessMessage"] = "Item successfuly created";
+                    this.TempData["SuccessMessage"] = "Item successfuly created";
                 }
+
                 return dbModel;
             }
             else
@@ -53,7 +54,7 @@
                 {
                     foreach (ModelError error in modelState.Errors)
                     {
-                        TempData["ErrorMessage"] += error.ErrorMessage;
+                        this.TempData["ErrorMessage"] += error.ErrorMessage;
                     }
                 }
             }

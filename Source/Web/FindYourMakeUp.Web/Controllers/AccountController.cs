@@ -5,18 +5,21 @@
     using System.Web;
     using System.Web.Mvc;
 
+    using FindYourMakeUp.Data.Models;
+    using FindYourMakeUp.Web.ViewModels;
+
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin.Security;
 
-    using FindYourMakeUp.Data.Models;
-    using FindYourMakeUp.Web.ViewModels;
-
     [Authorize]
     public class AccountController : Controller
     {
-        private ApplicationUserManager _userManager;
-        private ApplicationSignInManager _signInManager;
+        // Used for XSRF protection when adding external logins
+        private const string XsrfKey = "XsrfId";
+
+        private ApplicationUserManager userManager;
+        private ApplicationSignInManager signInManager;
 
         public AccountController()
         {
@@ -32,12 +35,12 @@
         {
             get
             {
-                return this._userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                return this.userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
 
             private set
             {
-                this._userManager = value;
+                this.userManager = value;
             }
         }
 
@@ -45,10 +48,21 @@
         {
             get
             {
-                return this._signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+                return this.signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
 
-            private set { this._signInManager = value; }
+            private set
+            {
+                this.signInManager = value;
+            }
+        }
+
+        private IAuthenticationManager AuthenticationManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().Authentication;
+            }
         }
 
         // GET: /Account/Login
@@ -399,16 +413,6 @@
         }
 
         #region Helpers
-        // Used for XSRF protection when adding external logins
-        private const string XsrfKey = "XsrfId";
-
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
-        }
 
         private void AddErrors(IdentityResult result)
         {
@@ -453,7 +457,7 @@
                 var properties = new AuthenticationProperties { RedirectUri = this.RedirectUri };
                 if (this.UserId != null)
                 {
-                    properties.Dictionary[XsrfKey] = this.UserId;
+                    properties.Dictionary[AccountController.XsrfKey] = this.UserId;
                 }
 
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, this.LoginProvider);

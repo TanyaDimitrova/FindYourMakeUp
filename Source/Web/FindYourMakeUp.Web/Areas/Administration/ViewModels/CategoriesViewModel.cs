@@ -1,10 +1,11 @@
 ﻿namespace FindYourMakeUp.Web.Areas.Administration.ViewModels
 {
+    using System.ComponentModel.DataAnnotations;
+    using System.Linq;
+
     using FindYourMakeUp.Data.Models;
     using FindYourMakeUp.Web.Areas.Administration.ViewModels.Base;
     using FindYourMakeUp.Web.Infrastructure.Mapping;
-    using System.ComponentModel.DataAnnotations;
-    using System.Linq;
 
     public class CategoriesViewModel : AdministrationViewModel, IMapFrom<Category>, IHaveCustomMappings
     {

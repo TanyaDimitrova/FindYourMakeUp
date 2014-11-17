@@ -1,6 +1,7 @@
 ﻿namespace FindYourMakeUp.Web.Areas.Administration.ViewModels
 {
     using System.ComponentModel.DataAnnotations;
+
     using AutoMapper;
 
     using FindYourMakeUp.Data.Models;
@@ -11,7 +12,7 @@
         [UIHint("ParentCategories")]
         public CategoriesViewModel Category { get; set; }
 
-        public void CreateMappings(IConfiguration configuration)
+        public new void CreateMappings(IConfiguration configuration)
         {
             configuration.CreateMap<Category, CategoriesParentsViewModel>()
                       .ForMember(c => c.Category, o => o.MapFrom(x => x.ParentCategory))

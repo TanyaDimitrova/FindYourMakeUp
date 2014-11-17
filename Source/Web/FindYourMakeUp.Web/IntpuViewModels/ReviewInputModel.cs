@@ -1,11 +1,10 @@
 ﻿namespace FindYourMakeUp.Web.IntpuViewModels
 {
-    using System;
     using System.ComponentModel.DataAnnotations;
 
-    using FindYourMakeUp.Web.ViewModels;
     using FindYourMakeUp.Data.Models;
     using FindYourMakeUp.Web.Infrastructure.Mapping;
+    using FindYourMakeUp.Web.ViewModels;
 
     public class ReviewInputModel : IMapFrom<Review>
     {

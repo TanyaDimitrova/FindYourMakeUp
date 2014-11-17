@@ -14,6 +14,7 @@
 
         public ActionResult Index()
         {
+            // todo: opravi viewto
             return this.View();
         }
     }

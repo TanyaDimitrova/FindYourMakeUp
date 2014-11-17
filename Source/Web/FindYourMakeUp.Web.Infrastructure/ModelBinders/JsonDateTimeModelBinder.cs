@@ -14,7 +14,9 @@
             string attemptedValue = bindingContext.ValueProvider.GetValue(bindingContext.ModelName).AttemptedValue;
 
             if (!Regex.IsMatch(attemptedValue, JsonDatePattern, RegexOptions.IgnoreCase))
+            {
                 return base.BindModel(controllerContext, bindingContext);
+            }
 
             long miliseconds = long.Parse(Regex.Match(attemptedValue, JsonDatePattern, RegexOptions.IgnoreCase).Groups[1].Value);
 

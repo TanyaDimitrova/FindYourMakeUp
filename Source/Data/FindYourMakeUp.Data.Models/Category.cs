@@ -1,11 +1,12 @@
 ﻿namespace FindYourMakeUp.Data.Models
 {
-    using FindYourMakeUp.Data.Contracts.Models;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    public class Category:DeletableEntity
+    using FindYourMakeUp.Data.Contracts.Models;
+
+    public class Category : DeletableEntity
     {
         public Category()
         {

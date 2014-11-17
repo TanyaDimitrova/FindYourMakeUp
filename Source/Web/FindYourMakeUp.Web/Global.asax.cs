@@ -1,14 +1,14 @@
 ﻿namespace FindYourMakeUp.Web
 {
+    using System;
+    using System.Globalization;
     using System.Reflection;
+    using System.Threading;
     using System.Web.Mvc;
     using System.Web.Optimization;
     using System.Web.Routing;
 
     using FindYourMakeUp.Web.Infrastructure.Mapping;
-    using System.Threading;
-    using System.Globalization;
-    using System;
     using FindYourMakeUp.Web.Infrastructure.ModelBinders;
 
     public class MvcApplication : System.Web.HttpApplication
