@@ -9,7 +9,7 @@
     using FindYourMakeUp.Data.Models;
     using FindYourMakeUp.Data.UoW;
     using FindYourMakeUp.Web.IntpuViewModels;
-    using FindYourMakeUp.Web.ViewModels;
+    using FindYourMakeUp.Web.ViewModels.Products;
 
     public class ReviewsController : BaseController
     {

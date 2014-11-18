@@ -41,22 +41,8 @@
             {
                 var dbModel = Mapper.Map<T>(model);
                 int result = this.ChangeEntityStateAndSave(dbModel, EntityState.Added);
-                if (result == 1)
-                {
-                    this.TempData["SuccessMessage"] = "Item successfuly created";
-                }
 
                 return dbModel;
-            }
-            else
-            {
-                foreach (ModelState modelState in ViewData.ModelState.Values)
-                {
-                    foreach (ModelError error in modelState.Errors)
-                    {
-                        this.TempData["ErrorMessage"] += error.ErrorMessage;
-                    }
-                }
             }
 
             return null;

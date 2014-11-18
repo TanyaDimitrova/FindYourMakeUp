@@ -1,4 +1,4 @@
-﻿@model FindYourMakeUp.Data.Models.Product
+﻿@model FindYourMakeUp.Web.ViewModels.Products.ProductListViewModel
 @{
     ViewBag.Title = "Details";
 }
@@ -6,7 +6,7 @@
 <div class="row">
     <div class="col-md-5">
         <h2>@Model.Name</h2>
-        <h4>@Model.Manufacturer.Name</h4>
+        <h4>@Model.ManufacturerName</h4>
     </div>
     <div class="col-md-5">
         <h1 class="pull-right">
@@ -47,7 +47,7 @@
         </div>
     </div>
 </div>
-@section scripts
+@*@section scripts
 {
     <script>
         var onSuccess = function (result) {
@@ -59,4 +59,4 @@
             }
         }
     </script>
-}
+}*@

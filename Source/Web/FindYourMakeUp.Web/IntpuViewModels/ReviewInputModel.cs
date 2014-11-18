@@ -4,7 +4,7 @@
 
     using FindYourMakeUp.Data.Models;
     using FindYourMakeUp.Web.Infrastructure.Mapping;
-    using FindYourMakeUp.Web.ViewModels;
+    using FindYourMakeUp.Web.ViewModels.Products;
 
     public class ReviewInputModel : IMapFrom<Review>
     {

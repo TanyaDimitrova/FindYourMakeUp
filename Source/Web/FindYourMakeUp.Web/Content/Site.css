@@ -1,18 +1,24 @@
 ﻿body {
 }
-.field-validation-valid
-{
-    display: none;
-}
-.validation-summary-valid
-{
-    display: none;
-}
-    .slider img {
-        height: 300pt;
-        width:100%;
-    }
 
-    #treeViewCategoriesNav::-webkit-scrollbar {
-    display : none;
+.field-validation-valid {
+    display: none;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+.slider img {
+    height: 300pt;
+    width: 100%;
+}
+
+#treeViewCategoriesNav::-webkit-scrollbar {
+    display: none;
+}
+
+.img-responsive.img-product {
+    width: 60px;
+    height: 60px;
 }

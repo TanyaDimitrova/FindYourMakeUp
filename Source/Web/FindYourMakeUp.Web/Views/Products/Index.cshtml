@@ -1,6 +1,7 @@
 ﻿@using Kendo.Mvc.UI;
 @using Kendo.Mvc.UI.Fluent;
 @using FindYourMakeUp.Web.ViewModels;
+
 @{
     ViewBag.Title = "Products";
 }
@@ -13,27 +14,27 @@
     @(Html.Kendo()
           .TreeView()
           .Name("treeViewCategoriesNav")
-                  .BindTo(Model, (NavigationBindingFactory<TreeViewItem> mappings) =>
-    {
-        mappings.For<CategoryNavigationViewModel>(binding => binding
-                                                          .ItemDataBound((item, category) => { item.Text = category.Name; })
-                                                          .Children(category => category.SubCategories));
-
-        mappings.For<SubCategoryNavigationViewModel>(binding => binding
-                                                             .ItemDataBound((item, subCategory) => { item.Text = subCategory.Name; })
-                                                             .Children(subCategory => subCategory.Types));
-
-        mappings.For<ProductTypeNavigationViewModel>(binding => binding
-                                                         .ItemDataBound((item, type) =>
-                                                         {
-                                                             item.Text = type.Name;
-                                                             item.Url = "/Products/ListByType/" + type.Id +"?categoryId="+type.CategoryId;
-                                                             item.LinkHtmlAttributes.Add("data-ajax", "true");
-                                                             item.LinkHtmlAttributes.Add("data-ajax-method", "GET");
-                                                             item.LinkHtmlAttributes.Add("data-ajax-mode", "replace");
-                                                             item.LinkHtmlAttributes.Add("data-ajax-update", "#product-description");
-                                                         }));
-    })
+          .BindTo(Model, (NavigationBindingFactory<TreeViewItem> mappings) =>
+          {
+              mappings.For<CategoryNavigationViewModel>(binding => binding
+                                                                          .ItemDataBound((item, category) => { item.Text = category.Name; })
+                                                                          .Children(category => category.SubCategories));
+    
+              mappings.For<SubCategoryNavigationViewModel>(binding => binding
+                                                                             .ItemDataBound((item, subCategory) => { item.Text = subCategory.Name; })
+                                                                             .Children(subCategory => subCategory.Types));
+    
+              mappings.For<ProductTypeNavigationViewModel>(binding => binding
+                                                                             .ItemDataBound((item, type) =>
+                                                                             {
+                                                                                 item.Text = type.Name;
+                                                                                 item.Url = "/Products/ListByType/" + type.Id + "?categoryId=" + type.CategoryId;
+                                                                                 item.LinkHtmlAttributes.Add("data-ajax", "true");
+                                                                                 item.LinkHtmlAttributes.Add("data-ajax-method", "GET");
+                                                                                 item.LinkHtmlAttributes.Add("data-ajax-mode", "replace");
+                                                                                 item.LinkHtmlAttributes.Add("data-ajax-update", "#product-description");
+                                                                             }));
+          })
     )
 </aside>
 <div id="product-description" class="col-sm-9"></div>

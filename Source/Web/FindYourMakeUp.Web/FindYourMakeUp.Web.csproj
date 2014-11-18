@@ -217,7 +217,7 @@
     <Compile Include="ViewModels\Account\ResetPasswordViewModel.cs" />
     <Compile Include="ViewModels\Account\SendCodeViewModel.cs" />
     <Compile Include="ViewModels\Account\VerifyCodeViewModel.cs" />
-    <Compile Include="ViewModels\CategoryNavigationViewModel.cs" />
+    <Compile Include="ViewModels\Category\CategoryNavigationViewModel.cs" />
     <Compile Include="ViewModels\Account\ExternalLoginListViewModel.cs" />
     <Compile Include="ViewModels\Manage\AddPhoneNumberViewModel.cs" />
     <Compile Include="ViewModels\Manage\ChangePasswordViewModel.cs" />
@@ -226,11 +226,12 @@
     <Compile Include="ViewModels\Manage\ManageLoginsViewModel.cs" />
     <Compile Include="ViewModels\Manage\SetPasswordViewModel.cs" />
     <Compile Include="ViewModels\Manage\VerifyPhoneNumberViewModel.cs" />
-    <Compile Include="ViewModels\SubCategoryNavigationViewModel.cs" />
-    <Compile Include="ViewModels\ProductListViewModel.cs" />
+    <Compile Include="ViewModels\Category\SubCategoryNavigationViewModel.cs" />
+    <Compile Include="ViewModels\Products\ProductListViewModel.cs" />
     <Compile Include="ViewModels\ProductTypeNavigationViewModel.cs" />
     <Compile Include="ViewModels\Home\IndexProductsViewModel.cs" />
     <Compile Include="ViewModels\Manage\ConfigureTwoFactorViewModel.cs" />
+    <Compile Include="ViewModels\Products\ProductSimpleViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />

@@ -8,10 +8,12 @@
 
     public class Product : DeletableEntity
     {
+        private const string DefaultImageUrl = "https://cdn1.iconfinder.com/data/icons/DarkGlass_Reworked/128x128/apps/sodipodi.png";
         private ICollection<Review> reviews;
 
         public Product()
         {
+            this.ImageUrl = DefaultImageUrl;
             this.reviews = new HashSet<Review>();
         }
 
@@ -30,6 +32,9 @@
         [Required]
         [StringLength(1000, MinimumLength = 3)]
         public string Description { get; set; }
+
+        [DefaultValue(DefaultImageUrl)]
+        public string ImageUrl { get; set; }
 
         [Required]
         public int ProductTypeId { get; set; }

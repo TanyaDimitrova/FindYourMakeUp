@@ -3,25 +3,23 @@
     <table class="table table-striped ">
         <thead>
             <tr class="row body-content">
+                <th class="col-md-3"> </th>
                 <th class="col-md-4">Name</th>
                 <th class="col-md-2">Manufacturer</th>
                 <th class="col-md-1">Rating</th>
-                <th class="col-md-3"> Type / Category </th>
             </tr>
         </thead>
         @foreach (var product in Model)
         {
             <tr class="row body-content">
-                <td class="col-md-3"><a href="/Products/Details/@product.Id"> @product.Name </a></td>
-                <td class="col-md-3">@product.Manufacturer.Name</td>
-                <td class="col-md-2">@product.Rating</td>
-                <td class="col-md-4">
-                    @product.ProductType.Name @product.Category.Name
-                    @if (product.Category.ParentCategory != null)
-                    {
-                        <span> @product.Category.ParentCategory.Name </span>
-                    }
+                <td class="col-md-3">
+                    <a href="/Products/Details/@product.Id">
+                        <img src="@product.ImageUrl" alt="@product.Name" class="img-responsive img-product" />
+                    </a>
                 </td>
+                <td class="col-md-4"><a href="/Products/Details/@product.Id"> @product.Name </a></td>
+                <td class="col-md-2">@product.Manufacturer.Name</td>
+                <td class="col-md-1">@product.Rating</td>
             </tr>
         }
     </table>
