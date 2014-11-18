@@ -209,6 +209,7 @@
     <Compile Include="IntpuViewModels\ReviewInputModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Utils\SortingPagingInfo.cs" />
     <Compile Include="ViewModels\Account\ForgotViewModel.cs" />
     <Compile Include="ViewModels\Account\ExternalLoginConfirmationViewModel.cs" />
     <Compile Include="ViewModels\Account\ForgotPasswordViewModel.cs" />
@@ -329,6 +330,8 @@
     <Content Include="Views\Shared\EditorTemplates\SingleLineText.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\NumericTextBox.cshtml" />
     <Content Include="Views\Reviews\_ListReviews.cshtml" />
+    <Content Include="Views\Home\_SliderPartial.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Image.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

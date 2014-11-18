@@ -1,12 +1,12 @@
-﻿@model FindYourMakeUp.Web.ViewModels.Products.ProductListViewModel
+﻿@model FindYourMakeUp.Data.Models.Product
 @{
     ViewBag.Title = "Details";
 }
-@Html.ValidationSummary("", new {@class="text-danger"});
+@Html.ValidationSummary("", new { @class = "text-danger" });
 <div class="row">
     <div class="col-md-5">
         <h2>@Model.Name</h2>
-        <h4>@Model.ManufacturerName</h4>
+        <h4>@Model.Manufacturer.Name</h4>
     </div>
     <div class="col-md-5">
         <h1 class="pull-right">
@@ -19,15 +19,20 @@
 </div>
 <hr />
 <div class="row">
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <div class="col-md-5">@Model.Description</div>
-        </div>
+    <div class="jumbotron">
+        <p>@Model.Description</p>
     </div>
 </div>
 <div id="reviews">
     @if (Model.Reviews.Count() > 0)
     {
+        <div class="row">
+            <div class="col-md-5 text-center">
+                <h3>Reviews for <em>@Model.Name</em></h3>
+                <hr />
+            </div>
+        </div>
+
         Html.RenderPartial("~/Views/Reviews/_ListReviews.cshtml", Model.Reviews);
     }
     else
@@ -48,15 +53,15 @@
     </div>
 </div>
 @*@section scripts
-{
-    <script>
-        var onSuccess = function (result) {
-            debugger;
-            if (result.url) {
-                // if the server returned a JSON object containing an url
-                // property we redirect the browser to that url
-                window.location.href = result.url;
+    {
+        <script>
+            var onSuccess = function (result) {
+                debugger;
+                if (result.url) {
+                    // if the server returned a JSON object containing an url
+                    // property we redirect the browser to that url
+                    window.location.href = result.url;
+                }
             }
-        }
-    </script>
-}*@
+        </script>
+    }*@

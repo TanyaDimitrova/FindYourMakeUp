@@ -4,7 +4,10 @@
     using System.Linq;
     using System.Web.Mvc;
 
+    using AutoMapper.QueryableExtensions;
+
     using FindYourMakeUp.Data.UoW;
+    using FindYourMakeUp.Web.ViewModels.Home;
 
     public class HomeController : BaseController
     {
@@ -19,12 +22,17 @@
             int count = myDir.GetFiles().Length;
             ViewBag.Count = count;
 
-            var products = this.Data.Products.All().ToList().OrderBy(p => p.Rating).First().Category.Name;
+            var topProducts = this.Data
+                                  .Products
+                                  .All()
+                                  .OrderByDescending(p => p.Reviews.Count())
+                                  .Take(3)
+                                  .Project()
+                                  .To<IndexProductsViewModel>()
+                                  .ToList();
 
-            this.ViewData["Category"] = products;
-            var categories = this.Data.Categories.All().Where(c => c.ParentCategoryId == null).ToList();
-            ViewBag.Categories = categories;
-            return this.View(categories);
+
+            return this.View(topProducts);
         }
 
         [HttpPost]
@@ -38,11 +46,6 @@
             var cats = this.Data.Categories.All().Where(c => c.ParentCategoryId == categoryId).ToArray();
 
             return this.Json(cats);
-        }
-
-        public ActionResult Error()
-        {
-            return this.View();
         }
     }
 }

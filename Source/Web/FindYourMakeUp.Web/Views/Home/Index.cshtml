@@ -1,39 +1,7 @@
-﻿@model IEnumerable<FindYourMakeUp.Data.Models.Category>
-
+﻿@model IEnumerable<FindYourMakeUp.Web.ViewModels.Home.IndexProductsViewModel>
 @{
     ViewBag.Title = "Home Page";
 }
-
-<div class="row">
-    <div class="slider">
-        @for (int i = 1; i < ViewBag.Count; i++)
-        {
-            <img src="~/Content/Images/@(i).jpg" alt="Old Photos" />
-        }
-    </div>
-</div>
-
-@using (Html.BeginForm())
-{
-    <div class="input-group form-group">
-        <span class="input-group-addon">Category</span>
-        <select id="state" name="state" class="form-control">
-            <option id="" value="oras">– Choose –</option>
-            @foreach (var c in Model)
-            {
-            <option id="@c.Id" value="@c.Id">@c.Name</option> }
-        </select>
-    </div>
-
-    <div class="input-group form-group">
-        <span class="input-group-addon">Type</span>
-        <select id="city" name="city" class="form-control">
-            <option id="" value="oras">– Choose –</option>
-
-        </select>
-    </div>
-}
-
 
 @section scripts{
     <script>
@@ -48,19 +16,59 @@
         });
     </script>
 
-<script>
-    $('#state').change(function (e) {
-        e.preventDefault();
-        var url = '@Url.Action("GetSubCategoriesNames", "Home")';
-        var categoryId = $('#state option:selected').val();
-        $.post(url, { categoryId: categoryId }, function (data) {
-            var items = [];
-            items.push("<option>–Choose–</option>");
-            $.each(data, function () {
-                items.push("<option value=" + this.Name + ">" + this.Name + "</option>");
+    <script>
+        $('#state').change(function (e) {
+            e.preventDefault();
+            var url = '@Url.Action("GetSubCategoriesNames", "Home")';
+            var categoryId = $('#state option:selected').val();
+            $.post(url, { categoryId: categoryId }, function (data) {
+                var items = [];
+                items.push("<option>–Choose–</option>");
+                $.each(data, function () {
+                    items.push("<option value=" + this.Name + ">" + this.Name + "</option>");
+                });
+                $("#city").html(items.join(' '));
             });
-            $("#city").html(items.join(' '));
         });
-    });
-</script>
+    </script>
 }
+
+
+
+
+@Html.Partial("_SliderPartial")
+
+<h1 class="text-center text-primary" >Most voted products</h1>
+<div class="row">
+
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title text-center">
+                        <h1>
+                            <a href="~/Products/Details/@item.Id">
+                                <strong>@item.Name</strong>
+                            </a>
+                        </h1>
+                    </div>
+                </div>
+                <div class="panel-body row" style="height: 250px">
+                    <div class="col-md-3">
+                        <a href="~/Products/Details/@item.Id">@Html.DisplayFor(x => item.ImageUrl)</a>
+                    </div>
+                    <div class="col-md-9">
+                        <blockquote>
+                                @(item.Description.Length > 100 ? item.Description.Substring(0,99) + "..." : item.Description)
+                            <p><small> @item.ManufacturerName</small> </p>
+                        </blockquote>
+                        <strong>   @item.ReviewsCount reviews</strong>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

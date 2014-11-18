@@ -1,26 +1,147 @@
-﻿@model ICollection<FindYourMakeUp.Data.Models.Product>
+﻿@using FindYourMakeUp.Web.Utils;
+
+@model ICollection<FindYourMakeUp.Data.Models.Product>
+
 <div class="container">
-    <table class="table table-striped ">
-        <thead>
-            <tr class="row body-content">
-                <th class="col-md-3"> </th>
-                <th class="col-md-4">Name</th>
-                <th class="col-md-2">Manufacturer</th>
-                <th class="col-md-1">Rating</th>
-            </tr>
-        </thead>
-        @foreach (var product in Model)
+    @{
+        SortingPagingInfo info = ViewBag.SortingPagingInfo;
+    }
+
+    @using (Ajax.BeginForm("GetPage", "Products",
+        new { categoryId = Model.First().CategoryId, id = Model.First().ProductTypeId }, new AjaxOptions
         {
-            <tr class="row body-content">
-                <td class="col-md-3">
-                    <a href="/Products/Details/@product.Id">
-                        <img src="@product.ImageUrl" alt="@product.Name" class="img-responsive img-product" />
-                    </a>
+            UpdateTargetId = "products",
+            HttpMethod = "POST",
+            InsertionMode = InsertionMode.Replace
+        }, new { id = "products" }))
+    {
+        @Html.Hidden("SortField", info.SortField)
+        @Html.Hidden("SortDirection", info.SortDirection)
+        @Html.Hidden("PageCount", info.PageCount)
+        @Html.Hidden("PageSize", info.PageSize)
+        @Html.Hidden("CurrentPageIndex", info.CurrentPageIndex)
+
+        <table class="table table-striped ">
+            <thead>
+                <tr class="row body-content">
+                    <th class="col-md-3"> </th>
+                    <th class="col-md-4"><a href="#" data-sortfield="Name">Name</a> </th>
+                    <th class="col-md-2"> <a href="#" data-sortfield="Manufacturer">Manufacturer</a></th>
+                    <th class="col-md-1"> <a href="#" data-sortfield="Rating">Rating</a></th>
+                </tr>
+            </thead>
+            @foreach (var product in Model)
+            {
+                <tr class="row body-content">
+                    <td class="col-md-3">
+                        <a href="/Products/Details/@product.Id">
+                            @Html.DisplayFor(x => product.ImageUrl, "Image")
+                        </a>
+                    </td>
+                    <td class="col-md-4"><a href="/Products/Details/@product.Id"> @product.Name </a></td>
+                    <td class="col-md-2">@product.Manufacturer.Name</td>
+                    <td class="col-md-1">@product.Rating</td>
+                </tr>
+            }
+
+            <tr>
+                <td colspan="4">
+                    <ul class="pagination">
+                        @if (info.CurrentPageIndex - 1 >= 0)
+                        {
+                            <li>
+                                <a href="#" data-pageindex="@(info.CurrentPageIndex - 1)" class="pagerLink"><<</a>
+                            </li>
+                        }
+
+
+                        @for (var i = 0; i < info.PageCount; i++)
+                        {
+                            if (i == info.CurrentPageIndex)
+                            {
+                                <li class="active"><a href="#">@(i + 1) <span class="sr-only">(current)</span></a></li>
+                            }
+                            else
+                            {
+                                <li>
+                                    <a href="#" data-pageindex="@i" class="pagerLink">@(i + 1)</a>
+                                </li>
+                            }
+                        }
+                        @if (info.CurrentPageIndex < info.PageCount)
+                        {
+                            <li>
+                                <a href="#" data-pageindex="@(info.CurrentPageIndex + 1)" class="pagerLink">>></a>
+                            </li>
+                        }
+                    </ul>
                 </td>
-                <td class="col-md-4"><a href="/Products/Details/@product.Id"> @product.Name </a></td>
-                <td class="col-md-2">@product.Manufacturer.Name</td>
-                <td class="col-md-1">@product.Rating</td>
             </tr>
-        }
-    </table>
+        </table>
+    }
+    <script>
+        $(document).ready(function () {
+            console.log('in');
+            $(".header").click(function (evt) {
+                var sortfield = $(evt.target).data("sortfield");
+                if ($("#SortField").val() == sortfield) {
+                    if ($("#SortDirection").val() == "ascending") {
+                        $("#SortDirection").val("descending");
+                    }
+                    else {
+                        $("#SortDirection").val("ascending");
+                    }
+                }
+                else {
+                    $("#SortField").val(sortfield);
+                    $("#SortDirection").val("ascending");
+                }
+                evt.preventDefault();
+                $("form").submit();
+            });
+
+            $(".pagerLink").click(function (evt) {
+                debugger;
+                console.log('uuuu');
+                var pageindex = $(evt.target).data("pageindex");
+                $("#CurrentPageIndex").val(pageindex);
+                evt.preventDefault();
+                $("form").submit();
+                $('#divPoints').load('/Schedule/UpdatePoints', UpdatePointsAction);
+            });
+        });
+    </script>
+
 </div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $(".header").click(function (evt) {
+                var sortfield = $(evt.target).data("sortfield");
+                if ($("#SortField").val() == sortfield) {
+                    if ($("#SortDirection").val() == "ascending") {
+                        $("#SortDirection").val("descending");
+                    }
+                    else {
+                        $("#SortDirection").val("ascending");
+                    }
+                }
+                else {
+                    $("#SortField").val(sortfield);
+                    $("#SortDirection").val("ascending");
+                }
+                evt.preventDefault();
+                $("form").submit();
+            });
+
+            $(".pagerLink").click(function (evt) {
+                debugger;
+                var pageindex = $(evt.target).data("pageindex");
+                $("#CurrentPageIndex").val(pageindex);
+                evt.preventDefault();
+                $("form").submit();
+            });
+        });
+    </script>
+}
